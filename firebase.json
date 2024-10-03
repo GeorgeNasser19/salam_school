@@ -1,0 +1,33 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "salam-school-e49c5",
+          "appId": "1:145122252238:android:29072d04c26af9f592479f",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "salam-school-e49c5",
+          "configurations": {
+            "android": "1:145122252238:android:29072d04c26af9f592479f",
+            "ios": "1:145122252238:ios:cb48d80a492292f892479f",
+            "macos": "1:145122252238:ios:cb48d80a492292f892479f",
+            "web": "1:145122252238:web:bb3f0638a2da379f92479f",
+            "windows": "1:145122252238:web:7bcfe38542f88b4e92479f"
+          }
+        }
+      }
+    }
+  },
+  "hosting": {
+    "public": "build/web",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
