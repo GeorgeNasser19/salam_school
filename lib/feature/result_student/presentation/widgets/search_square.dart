@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:salam_school/feature/result_student/presentation/views/result_arabic_grade_view';
+import 'package:salam_school/feature/result_student/presentation/views/result_arabic_view.dart';
 import 'package:salam_school/feature/result_student/presentation/views/result_english_view.dart';
 import 'package:salam_school/feature/result_student/presentation/widgets/text_field_costum.dart';
 
 import '../cubits/fetch_data_cubit/cubit/fetch_data_cubit.dart';
 import '../cubits/fetch_data_cubit/cubit/fetch_data_state.dart';
+import '../views/result_english_grade_view.dart';
 
 class SearchSquare extends StatefulWidget {
   const SearchSquare({
@@ -53,6 +56,9 @@ class _SearchSquareState extends State<SearchSquare> {
                   fontSize: 32,
                   fontWeight: FontWeight.bold),
             ),
+            const SizedBox(
+              height: 20,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -64,10 +70,18 @@ class _SearchSquareState extends State<SearchSquare> {
                   ),
                   dropdownColor: const Color(0xFF3C3F47),
                   items: <String>[
-                    'Year 1',
-                    'Year 2',
-                    'Year 3',
-                    'Year 4', // سنة 4 لفتح القائمة المخفية
+                    'KG 1',
+                    'KG 2',
+                    'Grade 1',
+                    'Grade 2',
+                    'Grade 3',
+                    'Grade 4',
+                    'Grade 5',
+                    'Grade 6',
+                    'preparatory 1',
+                    'preparatory 2',
+                    'secondary 1',
+                    'secondary 2',
                   ].map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
@@ -80,7 +94,7 @@ class _SearchSquareState extends State<SearchSquare> {
                   onChanged: (String? newValue) {
                     setState(() {
                       selectedYear = newValue;
-                      showSubCategoryDropdown = (selectedYear == 'Year 4');
+                      showSubCategoryDropdown = (selectedYear == 'secondary 2');
                       if (!showSubCategoryDropdown) {
                         selectedSubCategory = null; // إعادة تعيين القيمة
                       }
@@ -96,10 +110,8 @@ class _SearchSquareState extends State<SearchSquare> {
                   ),
                   dropdownColor: const Color(0xFF3C3F47),
                   items: <String>[
-                    'Category 1',
-                    'Category 2',
-                    'Category 3',
-                    'Category 4'
+                    'عربي',
+                    'English',
                   ].map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
@@ -118,21 +130,17 @@ class _SearchSquareState extends State<SearchSquare> {
               ],
             ),
             const SizedBox(height: 20),
-
-            // القائمة المنسدلة الثالثة (مخفية افتراضيًا)
             if (showSubCategoryDropdown)
               DropdownButton<String>(
                 value: selectedSubCategory,
                 hint: const Text(
-                  "Select Subcategory", // التسمية الجديدة للقائمة الثالثة
+                  "Select Subcategory",
                   style: TextStyle(color: Colors.white70),
                 ),
                 dropdownColor: const Color(0xFF3C3F47),
                 items: <String>[
-                  'Subcategory 1',
-                  'Subcategory 2',
-                  'Subcategory 3',
-                  'Subcategory 4'
+                  'علمي',
+                  'ادبي',
                 ].map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
@@ -148,60 +156,113 @@ class _SearchSquareState extends State<SearchSquare> {
                   });
                 },
               ),
-
             const SizedBox(height: 40),
             SizedBox(
               width: 300,
               child: TextfieldCustom(searchController: widget.searchController),
             ),
             const SizedBox(height: 40),
-
-            BlocBuilder<FetchDataCubit, FetchDataState>(
-                builder: (context, state) {
-              return ElevatedButton(
-                onPressed: () {
-                  if (selectedYear == null ||
-                      selectedCategory == null ||
-                      (showSubCategoryDropdown &&
-                          selectedSubCategory == null) ||
-                      widget.searchController.text.isEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text(
-                          'يجب اختيار جميع الخيارات وملء حقل البحث قبل المتابعة'),
-                      backgroundColor: Colors.red,
-                    ));
-                    return; // منع الانتقال في حالة عدم اختيار كل الخيارات أو فارغ
-                  }
-                  context
-                      .read<FetchDataCubit>()
-                      .fetchData(widget.searchController.text);
-                  // الانتظار حتى يتم جلب البيانات
-                  if (state is FetchDataStateSuccess) {
-                    // تحقق من القيم المختارة للإنتقال إلى صفحة النتائج
-                    if (selectedYear == "Year 1" &&
-                        selectedCategory == "Category 1") {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ResultEnglishView(
-                            student: state
-                                .student, // تأكد من وجود student في حالة النجاح
-                          ),
+            BlocConsumer<FetchDataCubit, FetchDataState>(
+              listener: (context, state) {
+                if (state is FetchDataStateSuccess) {
+                  if (selectedYear == "Grade 1" ||
+                      selectedYear == "Grade 2" ||
+                      selectedYear == "Grade 3" ||
+                      selectedYear == "Grade 4" ||
+                      selectedYear == "Grade 5" ||
+                      selectedYear == "Grade 6" ||
+                      selectedYear == "KG 1" ||
+                      selectedYear == "KG 2" && selectedCategory == "English") {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ResultEnglishView(
+                          student: state
+                              .student, // تأكد من وجود student في حالة النجاح
                         ),
-                      );
-                    }
-                  } else if (state is FetchDataStateFailure) {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text('Error: ${state.error}'),
-                      backgroundColor: Colors.red,
-                    ));
+                      ),
+                    );
+                  } else if (selectedYear == "Grade 1" ||
+                      selectedYear == "Grade 2" ||
+                      selectedYear == "Grade 3" ||
+                      selectedYear == "Grade 4" ||
+                      selectedYear == "Grade 5" ||
+                      selectedYear == "Grade 6" ||
+                      selectedYear == "KG 1" ||
+                      selectedYear == "KG 2" && selectedCategory == "عربي") {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ResultArabicView(
+                          student: state
+                              .student, // تأكد من وجود student في حالة النجاح
+                        ),
+                      ),
+                    );
                   }
-                },
-                child: state is FetchDataStateLoading
-                    ? const CircularProgressIndicator()
-                    : const Text("Search"),
-              );
-            })
+                  if (selectedYear == "preparatory 1" ||
+                      selectedYear == "preparatory 2" ||
+                      selectedYear == "secondary 1" &&
+                          selectedCategory == "عربي") {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ResultArabicGradeView(
+                          student: state
+                              .student, // تأكد من وجود student في حالة النجاح
+                        ),
+                      ),
+                    );
+                  }
+                  if (selectedYear == "preparatory 1" ||
+                      selectedYear == "preparatory 2" ||
+                      selectedYear == "secondary 1" &&
+                          selectedCategory == "English") {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ResultEnglishGradeView(
+                          student: state
+                              .student, // تأكد من وجود student في حالة النجاح
+                        ),
+                      ),
+                    );
+                  }
+                } else if (state is FetchDataStateFailure) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text('Error: ${state.error}'),
+                    backgroundColor: Colors.red,
+                  ));
+                }
+              },
+              builder: (context, state) {
+                return ElevatedButton(
+                  onPressed: () {
+                    if (selectedYear == null ||
+                        selectedCategory == null ||
+                        (showSubCategoryDropdown &&
+                            selectedSubCategory == null) ||
+                        widget.searchController.text.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text(
+                            'يجب اختيار جميع الخيارات وملء حقل البحث قبل المتابعة'),
+                        backgroundColor: Colors.red,
+                      ));
+                      return; // منع الانتقال في حالة عدم اختيار كل الخيارات أو فارغ
+                    }
+
+                    if (state is! FetchDataStateLoading) {
+                      context
+                          .read<FetchDataCubit>()
+                          .fetchData(widget.searchController.text);
+                    }
+                  },
+                  child: state is FetchDataStateLoading
+                      ? const CircularProgressIndicator()
+                      : const Text("Search"),
+                );
+              },
+            ),
           ],
         ),
       ),

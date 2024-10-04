@@ -25,7 +25,7 @@ class MangemantRepoImp extends MangemantRepo {
 
       String studentName = doc['name'];
       String studentId = doc.id;
-      int studentGrade = doc['grade'];
+      String studentGrade = doc['grade'];
 
       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
       LinkedHashMap<String, double> subjects = LinkedHashMap();

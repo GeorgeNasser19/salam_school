@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:salam_school/feature/result_student/presentation/views/passward_admin.dart';
 import 'package:salam_school/feature/result_student/presentation/widgets/search_square.dart';
 import 'package:salam_school/feature/result_student/presentation/widgets/text_custom.dart';
 
@@ -45,9 +46,18 @@ class _SearchViewState extends State<SearchView> {
                       padding: const EdgeInsets.only(right: 100),
                       child: Image.asset(
                         "lib/assets/logo.jpg",
-                        scale: 3,
+                        scale: 3.5,
                       ),
-                    )
+                    ),
+                    IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const PasswardAdmin()),
+                          );
+                        },
+                        icon: const Icon(Icons.three_p_outlined))
                   ],
                 ),
                 Center(
@@ -57,9 +67,6 @@ class _SearchViewState extends State<SearchView> {
                       searchController: searchController,
                     ),
                   ),
-                ),
-                const SizedBox(
-                  height: 20,
                 ),
               ],
             ),

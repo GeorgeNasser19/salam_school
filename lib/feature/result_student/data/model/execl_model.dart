@@ -5,7 +5,7 @@ import 'package:excel/excel.dart';
 class ExeclModel {
   final String studentId;
   final String studentName;
-  final int grade;
+  final String grade;
   final LinkedHashMap<String, double> subjects; // Changed to Map<String, int>
 
   ExeclModel({
@@ -27,7 +27,7 @@ class ExeclModel {
     return ExeclModel(
       studentId: row[0]?.value.toString() ?? '', // ID
       studentName: row[1]?.value.toString() ?? '', // Name
-      grade: int.tryParse(row[2]?.value.toString() ?? '0') ?? 0, // Grade
+      grade: row[2]?.value.toString() ?? '', // Grade
       subjects: subjects,
     );
   }
