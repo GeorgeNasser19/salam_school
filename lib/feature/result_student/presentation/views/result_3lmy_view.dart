@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../data/model/execl_model.dart';
 
-class ResultEnglishGradeView extends StatelessWidget {
-  const ResultEnglishGradeView({super.key, required this.student});
+class Result3mlyView extends StatelessWidget {
+  const Result3mlyView({super.key, required this.student});
 
   final ExeclModel student;
 
@@ -28,7 +28,7 @@ class ResultEnglishGradeView extends StatelessWidget {
                     children: [
                       ////////////////////////////////////////////////////////////////
                       const Text(
-                        'Arabic pageeeeeeeeeeeeee',
+                        'Result3mlyView pageeeeeeeeeeeeee',
                         style: TextStyle(
                             fontSize: 24, fontWeight: FontWeight.bold),
                         textAlign: TextAlign.center,
