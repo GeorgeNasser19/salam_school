@@ -166,79 +166,82 @@ class _SearchSquareState extends State<SearchSquare> {
             BlocConsumer<FetchDataCubit, FetchDataState>(
               listener: (context, state) {
                 if (state is FetchDataStateSuccess) {
-                  if (selectedYear == "Grade 1" ||
-                      selectedYear == "Grade 2" ||
-                      selectedYear == "Grade 3" ||
-                      selectedYear == "Grade 4" ||
-                      selectedYear == "Grade 5" ||
-                      selectedYear == "Grade 6" ||
-                      selectedYear == "KG 1" ||
-                      selectedYear == "KG 2" && selectedCategory == "English") {
+                  // التحقق من الفئة English للسنة الدراسية من KG1 إلى Grade 6
+                  if ((selectedYear == "Grade 1" ||
+                          selectedYear == "Grade 2" ||
+                          selectedYear == "Grade 3" ||
+                          selectedYear == "Grade 4" ||
+                          selectedYear == "Grade 5" ||
+                          selectedYear == "Grade 6" ||
+                          selectedYear == "KG 1" ||
+                          selectedYear == "KG 2") &&
+                      selectedCategory == "English") {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => ResultEnglishView(
-                          student: state
-                              .student, // تأكد من وجود student في حالة النجاح
+                          student: state.student,
                         ),
                       ),
                     );
-                  } else if (selectedYear == "Grade 1" ||
-                      selectedYear == "Grade 2" ||
-                      selectedYear == "Grade 3" ||
-                      selectedYear == "Grade 4" ||
-                      selectedYear == "Grade 5" ||
-                      selectedYear == "Grade 6" ||
-                      selectedYear == "KG 1" ||
-                      selectedYear == "KG 2" && selectedCategory == "عربي") {
+                  }
+                  // التحقق من الفئة عربي للسنة الدراسية من KG1 إلى Grade 6
+                  else if ((selectedYear == "Grade 1" ||
+                          selectedYear == "Grade 2" ||
+                          selectedYear == "Grade 3" ||
+                          selectedYear == "Grade 4" ||
+                          selectedYear == "Grade 5" ||
+                          selectedYear == "Grade 6" ||
+                          selectedYear == "KG 1" ||
+                          selectedYear == "KG 2") &&
+                      selectedCategory == "عربي") {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => ResultArabicView(
-                          student: state
-                              .student, // تأكد من وجود student في حالة النجاح
+                          student: state.student,
                         ),
                       ),
                     );
                   }
-                  if (selectedYear == "preparatory 1" ||
-                      selectedYear == "preparatory 2" ||
-                      selectedYear == "secondary 1" &&
-                          selectedCategory == "عربي" ||
-                      selectedCategory == "English") {
+                  // التحقق من الفئة عربي أو English للسنة الدراسية من preparatory 1 إلى secondary 1
+                  else if ((selectedYear == "preparatory 1" ||
+                          selectedYear == "preparatory 2" ||
+                          selectedYear == "secondary 1") &&
+                      (selectedCategory == "عربي" ||
+                          selectedCategory == "English")) {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => ResultArabicGradeView(
-                          student: state
-                              .student, // تأكد من وجود student في حالة النجاح
+                          student: state.student,
                         ),
                       ),
                     );
                   }
-                  if (selectedYear == "secondary 2" &&
-                          selectedSubCategory == "علمي" &&
-                          selectedCategory == "عربي" ||
-                      selectedCategory == "English") {
+                  // التحقق من الفئة علمي للسنة الدراسية secondary 2
+                  else if (selectedYear == "secondary 2" &&
+                      selectedSubCategory == "علمي" &&
+                      (selectedCategory == "عربي" ||
+                          selectedCategory == "English")) {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => Result3mlyView(
-                          student: state
-                              .student, // تأكد من وجود student في حالة النجاح
+                          student: state.student,
                         ),
                       ),
                     );
                   }
-                  if (selectedYear == "secondary 2" &&
+                  // التحقق من الفئة ادبي للسنة الدراسية secondary 2
+                  else if (selectedYear == "secondary 2" &&
                       selectedSubCategory == "ادبي" &&
                       selectedCategory == "عربي") {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => ResultAdbyView(
-                          student: state
-                              .student, // تأكد من وجود student في حالة النجاح
+                          student: state.student,
                         ),
                       ),
                     );
@@ -263,7 +266,7 @@ class _SearchSquareState extends State<SearchSquare> {
                             'يجب اختيار جميع الخيارات وملء حقل البحث قبل المتابعة'),
                         backgroundColor: Colors.red,
                       ));
-                      return; // منع الانتقال في حالة عدم اختيار كل الخيارات أو فارغ
+                      return;
                     }
 
                     if (state is! FetchDataStateLoading) {

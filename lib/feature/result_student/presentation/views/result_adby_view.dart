@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../data/model/execl_model.dart';
+import '../../data/model/execl_model.dart'; /////////////////////////////////////// change
 
 class ResultAdbyView extends StatelessWidget {
   const ResultAdbyView({super.key, required this.student});

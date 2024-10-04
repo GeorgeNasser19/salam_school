@@ -9,96 +9,100 @@ class ResultArabicView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Stack(
-        children: [
-          const SizedBox(
-            width: double.infinity,
-            height: double.infinity,
-          ),
-          Center(
-            child: SizedBox(
-              width: 1100,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      ////////////////////////////////////////////////////////////////
-                      const Text(
-                        'Arabic pageeeeeeeeeeeeee',
-                        style: TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      ),
-                      ///////////////////////////////////////////////////////////////////
-                      const Text(
-                        'Second Semester 2024\nProgress Report',
-                        style: TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        'Congratulations\n${student.grade}',
-                        style:
-                            const TextStyle(fontSize: 22, color: Colors.blue),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 16),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+    return Directionality(
+      textDirection: TextDirection.rtl, // تغيير الاتجاه إلى من اليمين لليسار
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: Stack(
+          children: [
+            const SizedBox(
+              width: double.infinity,
+              height: double.infinity,
+            ),
+            Center(
+              child: SizedBox(
+                width: 1100,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        ////////////////////////////////////////////////////////////////
+                        const Text(
+                          'صفحة النتائج - عربييي',
+                          style: TextStyle(
+                              fontSize: 24, fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                        ///////////////////////////////////////////////////////////////////
+                        const Text(
+                          'تقرير التقدم - الفصل الدراسي الثاني 2024',
+                          style: TextStyle(
+                              fontSize: 24, fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          'تهانينا\n${student.grade}',
+                          style:
+                              const TextStyle(fontSize: 22, color: Colors.blue),
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: 16),
+                        Padding(
+                          padding:
+                              const EdgeInsets.only(right: 8), // تعديل المحاذاة
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "الاسم: ${student.studentName}",
+                                style: const TextStyle(fontSize: 18),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        Table(
+                          border: TableBorder.all(),
+                          columnWidths: const {
+                            0: FlexColumnWidth(1),
+                            1: FlexColumnWidth(1),
+                            2: FlexColumnWidth(1),
+                            3: FlexColumnWidth(1),
+                            4: FlexColumnWidth(1),
+                          },
                           children: [
-                            Text(
-                              "Name : ${student.studentName}",
-                              style: const TextStyle(fontSize: 18),
-                            ),
+                            _buildHeaderRow(),
+                            ...student.subjects.entries.map((entry) {
+                              return _buildRow(
+                                entry.key,
+                                entry.value.toDouble(),
+                                const Color.fromARGB(255, 82, 116, 175),
+                              );
+                            })
                           ],
                         ),
-                      ),
-                      const SizedBox(height: 16),
-                      Table(
-                        border: TableBorder.all(),
-                        columnWidths: const {
-                          0: FlexColumnWidth(1),
-                          1: FlexColumnWidth(1),
-                          2: FlexColumnWidth(1),
-                          3: FlexColumnWidth(1),
-                          4: FlexColumnWidth(1),
-                        },
-                        children: [
-                          _buildHeaderRow(),
-                          ...student.subjects.entries.map((entry) {
-                            return _buildRow(
-                              entry.key,
-                              entry.value.toDouble(),
-                              const Color.fromARGB(255, 82, 116, 175),
-                            );
-                          })
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Administrative official: Caroline Thrwat'),
-                          Text('Primary stage supervisor: Amany Adeeb'),
-                        ],
-                      ),
-                      const SizedBox(height: 8),
-                      const Text('School Principal: Nesreen Monged',
-                          textAlign: TextAlign.center),
-                    ],
+                        const SizedBox(height: 16),
+                        const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('المسؤول الإداري: كارولين ثروت'),
+                            Text('مشرفة المرحلة الابتدائية: أماني عديب'),
+                          ],
+                        ),
+                        const SizedBox(height: 8),
+                        const Text('مديرة المدرسة: نسرين منجد',
+                            textAlign: TextAlign.center),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -106,15 +110,14 @@ class ResultArabicView extends StatelessWidget {
   TableRow _buildHeaderRow() {
     return TableRow(
       children: [
-        _buildCell('Subject\n  ',
-            isHeader: false, color: const Color.fromARGB(255, 82, 116, 175)),
-        _buildCell('Exceeds\nExpectations',
-            isHeader: false, color: Colors.blue),
-        _buildCell('Always meets\nExpectations',
-            isHeader: false, color: Colors.green),
-        _buildCell('Sometimes meets\nExpectations',
+        _buildCell('المادة\n  ',
+            isHeader: true, color: const Color.fromARGB(255, 82, 116, 175)),
+        _buildCell('متفوق\nفي التوقعات', isHeader: true, color: Colors.blue),
+        _buildCell('يلبي دائمًا\nالتوقعات',
+            isHeader: true, color: Colors.green),
+        _buildCell('يلبي أحيانًا\nالتوقعات',
             isHeader: true, color: Colors.yellow),
-        _buildCell('Unacceptable\n', isHeader: false, color: Colors.red),
+        _buildCell('غير مقبول\n', isHeader: true, color: Colors.red),
       ],
     );
   }
@@ -125,6 +128,7 @@ class ResultArabicView extends StatelessWidget {
     Color sometimesColor = Colors.transparent;
     Color unacceptableColor = Colors.transparent;
 
+    // تخصيص الألوان بناءً على الدرجة
     if (grade >= 35 && grade <= 40) {
       exceedsColor = Colors.blue;
     } else if (grade >= 30 && grade < 35) {
@@ -137,8 +141,8 @@ class ResultArabicView extends StatelessWidget {
 
     return TableRow(
       children: [
-        _buildCell(subject, color: subjectColor),
-        _buildCell('', color: exceedsColor),
+        _buildCell(subject, color: subjectColor), // عرض المادة
+        _buildCell('', color: exceedsColor), // عرض اللون بناءً على الدرجة
         _buildCell('', color: alwaysColor),
         _buildCell('', color: sometimesColor),
         _buildCell('', color: unacceptableColor),
