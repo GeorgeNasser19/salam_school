@@ -1,10 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
+import 'package:salam_school/feature/result_student/presentation/cubits/fetch_data_cubit/cubit/fetch_data_state.dart';
 
 import '../../../../data/mangemant_repo_imp.dart';
-import '../../../../data/model/execl_model.dart';
-
-part 'fetch_data_state.dart';
 
 class FetchDataCubit extends Cubit<FetchDataState> {
   FetchDataCubit(this.mangemantRepoImp) : super(FetchDataStateInitial());

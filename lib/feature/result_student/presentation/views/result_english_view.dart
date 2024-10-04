@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../data/model/execl_model.dart';
 
-class ResultView extends StatelessWidget {
-  const ResultView({super.key, required this.student});
+class ResultEnglishView extends StatelessWidget {
+  const ResultEnglishView({super.key, required this.student});
 
   final ExeclModel student;
 
@@ -16,10 +16,6 @@ class ResultView extends StatelessWidget {
           Container(
             width: double.infinity,
             height: double.infinity,
-            child: Image.asset(
-              "lib/assets/WhatsApp Image 2024-10-02 at 01.58.09_52ebf013.jpg",
-              fit: BoxFit.contain,
-            ),
           ),
           Center(
             child: Container(
@@ -30,6 +26,14 @@ class ResultView extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      ////////////////////////////////////////////////////////////////
+                      Text(
+                        'English pageeeeeeeeeeeeee',
+                        style: TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                      ///////////////////////////////////////////////////////////////////
                       const Text(
                         'Second Semester 2024\nProgress Report',
                         style: TextStyle(
@@ -71,10 +75,10 @@ class ResultView extends StatelessWidget {
                           ...student.subjects.entries.map((entry) {
                             return _buildRow(
                               entry.key,
-                              entry.value,
+                              entry.value.toDouble(),
                               const Color.fromARGB(255, 82, 116, 175),
                             );
-                          }),
+                          })
                         ],
                       ),
                       const SizedBox(height: 16),
@@ -104,17 +108,18 @@ class ResultView extends StatelessWidget {
       children: [
         _buildCell('Subject\n  ',
             isHeader: false, color: const Color.fromARGB(255, 82, 116, 175)),
-        _buildCell('Exceeds\nExpectations', isHeader: true, color: Colors.blue),
+        _buildCell('Exceeds\nExpectations',
+            isHeader: false, color: Colors.blue),
         _buildCell('Always meets\nExpectations',
-            isHeader: true, color: Colors.green),
+            isHeader: false, color: Colors.green),
         _buildCell('Sometimes meets\nExpectations',
             isHeader: true, color: Colors.yellow),
-        _buildCell('Unacceptable\n', isHeader: true, color: Colors.red),
+        _buildCell('Unacceptable\n', isHeader: false, color: Colors.red),
       ],
     );
   }
 
-  TableRow _buildRow(String subject, int grade, Color subjectColor) {
+  TableRow _buildRow(String subject, double grade, Color subjectColor) {
     Color exceedsColor = Colors.transparent;
     Color alwaysColor = Colors.transparent;
     Color sometimesColor = Colors.transparent;
@@ -151,7 +156,7 @@ class ResultView extends StatelessWidget {
           text,
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: isHeader ? Colors.white : Colors.black,
+            color: isHeader ? Colors.black : Colors.white,
           ),
           textAlign: TextAlign.center,
         ),

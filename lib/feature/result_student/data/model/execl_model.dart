@@ -1,25 +1,27 @@
+import 'dart:collection';
+
 import 'package:excel/excel.dart';
 
 class ExeclModel {
   final String studentId;
   final String studentName;
-  final int grade; // Add the grade field
-  final Map<String, int> subjects;
+  final int grade;
+  final LinkedHashMap<String, double> subjects; // Changed to Map<String, int>
 
   ExeclModel({
     required this.studentId,
     required this.studentName,
-    required this.grade, // Include grade in constructor
+    required this.grade,
     required this.subjects,
   });
 
   factory ExeclModel.fromExcelRow(List<Data?> row, List<String> subjectNames) {
-    Map<String, int> subjects = {};
+    LinkedHashMap<String, double> subjects = LinkedHashMap();
 
     for (int i = 0; i < subjectNames.length; i++) {
+      double value = double.tryParse(row[i + 3]?.value.toString() ?? '0') ?? 0;
       subjects[subjectNames[i]] =
-          int.tryParse(row[i + 3]?.value.toString() ?? '0') ??
-              0; // Adjust index for subjects
+          double.parse(value.toStringAsFixed(1)); // تحويل القيمة إلى int
     }
 
     return ExeclModel(
@@ -34,7 +36,7 @@ class ExeclModel {
     return {
       'student_id': studentId,
       'name': studentName,
-      'grade': grade, // Include grade in JSON
+      'grade': grade,
       'subjects': subjects,
     };
   }

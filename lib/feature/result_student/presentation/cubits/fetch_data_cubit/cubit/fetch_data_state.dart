@@ -1,4 +1,6 @@
-part of 'fetch_data_cubit.dart';
+import 'package:equatable/equatable.dart';
+
+import '../../../../data/model/execl_model.dart';
 
 sealed class FetchDataState extends Equatable {
   const FetchDataState();

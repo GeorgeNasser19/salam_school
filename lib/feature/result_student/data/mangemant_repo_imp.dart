@@ -1,14 +1,16 @@
+import 'dart:collection';
 import 'dart:developer';
 import 'dart:typed_data';
 import 'package:excel/excel.dart';
 import 'package:dartz/dartz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:salam_school/feature/result_student/domain/mangemant_repo.dart';
+import '../domain/mangemant_repo.dart';
 import 'model/execl_model.dart';
 
 class MangemantRepoImp extends MangemantRepo {
   final FirebaseFirestore firestore;
   MangemantRepoImp(this.firestore);
+
   @override
   Future<Either<String, ExeclModel>> fetchData(String studentID) async {
     try {
@@ -23,27 +25,25 @@ class MangemantRepoImp extends MangemantRepo {
 
       String studentName = doc['name'];
       String studentId = doc.id;
-      int studentGrade = doc['grade']; // Fetch the grade from Firestore
+      int studentGrade = doc['grade'];
 
       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-      Map<String, int> subjects = {};
+      LinkedHashMap<String, double> subjects = LinkedHashMap();
 
       if (data.containsKey('subjects')) {
         Map<String, dynamic> subjectsData = data['subjects'];
         subjectsData.forEach((key, value) {
-          if (value is int) {
-            subjects[key] = value;
-          } else {
-            subjects[key] =
-                int.tryParse(value.toString()) ?? 0; // Default value 0
-          }
+          // Convert to int
+          subjects[key] = (value is int)
+              ? value.toDouble()
+              : double.tryParse(value.toString()) ?? 0.0;
         });
       }
 
       ExeclModel student = ExeclModel(
         studentId: studentId,
         studentName: studentName,
-        grade: studentGrade, // Include grade in the model
+        grade: studentGrade,
         subjects: subjects,
       );
 
@@ -67,7 +67,7 @@ class MangemantRepoImp extends MangemantRepo {
         }
 
         List<String> subjectNames = sheet.rows[0]
-            .skip(3) // تعديل لتجاهل الصف الدراسي
+            .skip(3) // Skip ID, Name, and Grade columns
             .map((cell) => cell?.value.toString() ?? '')
             .toList();
 

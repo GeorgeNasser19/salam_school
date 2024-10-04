@@ -1,13 +1,10 @@
 import 'dart:typed_data';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:salam_school/feature/result_student/presentation/views/serch_view.dart';
 
 import '../../data/mangemant_repo_imp.dart';
-import '../cubits/fetch_data_cubit/cubit/fetch_data_cubit.dart';
 import '../cubits/set_date_cubit/set_data_cubit.dart';
 
 class AdminView extends StatelessWidget {
@@ -99,21 +96,6 @@ class AdminView extends StatelessWidget {
                 },
               ),
               const SizedBox(height: 20),
-              IconButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => BlocProvider(
-                        create: (context) => FetchDataCubit(
-                            MangemantRepoImp(FirebaseFirestore.instance)),
-                        child: const SearchView(),
-                      ),
-                    ),
-                  );
-                },
-                icon: const Icon(Icons.arrow_forward_sharp),
-              ),
             ],
           ),
         ),
