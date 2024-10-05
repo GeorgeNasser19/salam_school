@@ -24,6 +24,8 @@ class _SearchViewState extends State<SearchView> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isSmallScreen = screenWidth < 600;
     return Scaffold(
       backgroundColor: const Color.fromARGB(251, 247, 246, 246),
       body: InteractiveViewer(
@@ -35,18 +37,21 @@ class _SearchViewState extends State<SearchView> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                SizedBox(
+                  height: isSmallScreen ? 50 : 0,
+                ),
                 Row(
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.only(left: 100),
-                      child: TextCustom(),
+                    Padding(
+                      padding: EdgeInsets.only(left: isSmallScreen ? 0 : 100),
+                      child: const TextCustom(),
                     ),
                     const Spacer(),
                     Padding(
-                      padding: const EdgeInsets.only(right: 100),
+                      padding: EdgeInsets.only(right: isSmallScreen ? 0 : 100),
                       child: Image.asset(
                         "lib/assets/logo.jpg",
-                        scale: 3.5,
+                        scale: isSmallScreen ? 10 : 3.5,
                       ),
                     ),
                     IconButton(
@@ -60,9 +65,12 @@ class _SearchViewState extends State<SearchView> {
                         icon: const Icon(Icons.three_p_outlined))
                   ],
                 ),
+                SizedBox(
+                  height: isSmallScreen ? 50 : 0,
+                ),
                 Center(
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 50),
+                    padding: EdgeInsets.only(left: isSmallScreen ? 0 : 50),
                     child: SearchSquare(
                       searchController: searchController,
                     ),

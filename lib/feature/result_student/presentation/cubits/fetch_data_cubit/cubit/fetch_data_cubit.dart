@@ -8,10 +8,12 @@ class FetchDataCubit extends Cubit<FetchDataState> {
 
   final MangemantRepoImp mangemantRepoImp;
 
-  Future<void> fetchData(String studentId) async {
+  Future<void> fetchData(
+      String studentID, String selectedYear, String selectedLanguage) async {
     emit(FetchDataStateLoading());
 
-    final result = await mangemantRepoImp.fetchData(studentId);
+    final result = await mangemantRepoImp.fetchData(
+        studentID, selectedYear, selectedLanguage);
 
     result.fold(
       (failure) => emit(FetchDataStateFailure(failure)),
