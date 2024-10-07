@@ -9,6 +9,7 @@ class ResultArabicGradeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final curWidth = MediaQuery.of(context).size.width.toInt();
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -26,23 +27,15 @@ class ResultArabicGradeView extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      ////////////////////////////////////////////////////////////////
                       const Text(
-                        'ResultAdbyView pageeeeeeeeeeeeee',
-                        style: TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      ),
-                      ///////////////////////////////////////////////////////////////////
-                      const Text(
-                        'Second Semester 2024\nProgress Report',
+                        'تقرير التقدم - الفصل الدراسي الثاني 2024',
                         style: TextStyle(
                             fontSize: 24, fontWeight: FontWeight.bold),
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        'Congratulations\n${student.grade}',
+                        'تهانينا\n${student.grade}',
                         style:
                             const TextStyle(fontSize: 22, color: Colors.blue),
                         textAlign: TextAlign.center,
@@ -54,7 +47,7 @@ class ResultArabicGradeView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "Name : ${student.studentName}",
+                              " ${student.studentName} : الاسم ",
                               style: const TextStyle(fontSize: 18),
                             ),
                           ],
@@ -78,16 +71,24 @@ class ResultArabicGradeView extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 16),
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Administrative official: Caroline Thrwat'),
-                          Text('Primary stage supervisor: Amany Adeeb'),
-                        ],
-                      ),
-                      const SizedBox(height: 8),
-                      const Text('School Principal: Nesreen Monged',
-                          textAlign: TextAlign.center),
+                      curWidth < 600
+                          ? const Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text('المسؤول الإداري: كارولين ثروت'),
+                                SizedBox(height: 4),
+                                Text('مشرفه المرحلة الابتدائية: أماني عديب'),
+                                SizedBox(height: 4),
+                                Text('مديره المدرسة: نسرين منجد'),
+                              ],
+                            )
+                          : const Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('المسؤول الإداري: كارولين ثروت'),
+                                Text('مشرفة المرحلة الابتدائية: أماني عديب'),
+                              ],
+                            ),
                     ],
                   ),
                 ),

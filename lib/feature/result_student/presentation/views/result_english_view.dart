@@ -12,110 +12,127 @@ class ResultEnglishView extends StatelessWidget {
   Widget build(BuildContext context) {
     final curWidth = MediaQuery.of(context).size.width.toInt();
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          return Stack(
-            children: [
-              const SizedBox(
-                width: double.infinity,
-                height: double.infinity,
-              ),
-              Center(
-                child: Container(
-                  width: curWidth < 400 ? 500 : 1100,
-                  height: 8000,
-                  padding: const EdgeInsets.all(16.0),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(curWidth.toString()),
-                        Text(
-                          'Second Semester 2024\nProgress Report',
-                          style: TextStyle(
-                              fontSize:
-                                  _getFontSize(context, 24), // Adjust font size
-                              fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          'Congratulations\n${student.grade}',
-                          style: TextStyle(
-                              fontSize:
-                                  _getFontSize(context, 22), // Adjust font size
-                              color: Colors.blue),
-                          textAlign: TextAlign.center,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+        backgroundColor: Colors.white,
+        body: Stack(
+          children: [
+            Image.asset(
+              "lib/assets/stack.png",
+              fit: BoxFit.cover,
+              width: curWidth < 600 ? 500 : double.infinity,
+              height: curWidth < 600
+                  ? 1000
+                  : double
+                      .infinity, // opacity: const AlwaysStoppedAnimation(.5),
+            ),
+            LayoutBuilder(
+              builder: (context, constraints) {
+                return Stack(
+                  children: [
+                    const SizedBox(
+                      width: double.infinity,
+                      height: double.infinity,
+                    ),
+                    Center(
+                      child: Container(
+                        width: curWidth < 400 ? 500 : 1100,
+                        height: 8000,
+                        padding: const EdgeInsets.all(16.0),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
+                              Text(curWidth.toString()),
                               Text(
-                                "Name : ${student.studentName}",
+                                'Second Semester 2024\nProgress Report',
                                 style: TextStyle(
                                     fontSize: _getFontSize(
-                                        context, 18)), // Adjust font size
+                                        context, 24), // Adjust font size
+                                    fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
                               ),
+                              const SizedBox(height: 8),
+                              Text(
+                                'Congratulations\n${student.grade}',
+                                style: TextStyle(
+                                    fontSize: _getFontSize(
+                                        context, 22), // Adjust font size
+                                    color: Colors.blue),
+                                textAlign: TextAlign.center,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Name : ${student.studentName}",
+                                      style: TextStyle(
+                                          fontSize: _getFontSize(
+                                              context, 18)), // Adjust font size
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              Table(
+                                border: TableBorder.all(),
+                                columnWidths: const {
+                                  0: FlexColumnWidth(1.3),
+                                  1: FlexColumnWidth(1),
+                                  2: FlexColumnWidth(1),
+                                  3: FlexColumnWidth(1),
+                                  4: FlexColumnWidth(1),
+                                },
+                                children: [
+                                  _buildHeaderRow(),
+                                  ...student.subjects.entries.map((entry) {
+                                    return _buildRow(
+                                      entry.key,
+                                      entry.value.toDouble(),
+                                      const Color.fromARGB(255, 82, 116, 175),
+                                    );
+                                  })
+                                ],
+                              ),
+                              const SizedBox(height: 16),
+                              curWidth < 600
+                                  ? const Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                            'Administrative official: Caroline Thrwat'),
+                                        SizedBox(height: 4),
+                                        Text(
+                                            'Primary stage supervisor: Amany Adeeb'),
+                                        SizedBox(height: 4),
+                                        Text(
+                                            'School Principal: Nesreen Monged'),
+                                      ],
+                                    )
+                                  : const Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                            'Administrative official: Caroline Thrwat'),
+                                        Text(
+                                            'Primary stage supervisor: Amany Adeeb'),
+                                        Text(
+                                            'School Principal: Nesreen Monged'),
+                                      ],
+                                    ),
                             ],
                           ),
                         ),
-                        const SizedBox(height: 16),
-                        Table(
-                          border: TableBorder.all(),
-                          columnWidths: const {
-                            0: FlexColumnWidth(1.3),
-                            1: FlexColumnWidth(1),
-                            2: FlexColumnWidth(1),
-                            3: FlexColumnWidth(1),
-                            4: FlexColumnWidth(1),
-                          },
-                          children: [
-                            _buildHeaderRow(),
-                            ...student.subjects.entries.map((entry) {
-                              return _buildRow(
-                                entry.key,
-                                entry.value.toDouble(),
-                                const Color.fromARGB(255, 82, 116, 175),
-                              );
-                            })
-                          ],
-                        ),
-                        const SizedBox(height: 16),
-                        curWidth < 600
-                            ? const Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                      'Administrative official: Caroline Thrwat'),
-                                  SizedBox(height: 4),
-                                  Text('Primary stage supervisor: Amany Adeeb'),
-                                  SizedBox(height: 4),
-                                  Text('School Principal: Nesreen Monged'),
-                                ],
-                              )
-                            : const Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                      'Administrative official: Caroline Thrwat'),
-                                  Text('Primary stage supervisor: Amany Adeeb'),
-                                  Text('School Principal: Nesreen Monged'),
-                                ],
-                              ),
-                      ],
-                    ),
-                  ),
-                ),
-              )
-            ],
-          );
-        },
-      ),
-    );
+                      ),
+                    )
+                  ],
+                );
+              },
+            ),
+          ],
+        ));
   }
 
   // Function to adjust font size based on screen size
@@ -135,13 +152,12 @@ class ResultEnglishView extends StatelessWidget {
     return TableRow(
       children: [
         _buildCell('Subject\n  ',
-            isHeader: false, color: const Color.fromARGB(255, 82, 116, 175)),
-        _buildCell('Exceeds\nExpectations',
-            isHeader: false, color: Colors.blue),
+            isHeader: true, color: const Color.fromARGB(255, 82, 116, 175)),
+        _buildCell('Exceeds\nExpectations', isHeader: true, color: Colors.blue),
         _buildCell('Always meets\nExpectations',
-            isHeader: false, color: Colors.green),
+            isHeader: true, color: Colors.green),
         _buildCell('Sometimes meets\nExpectations',
-            isHeader: false, color: Colors.yellow),
+            isHeader: true, color: Colors.yellow),
         _buildCell('Unacceptable\n', isHeader: true, color: Colors.red),
       ],
     );
@@ -165,7 +181,7 @@ class ResultEnglishView extends StatelessWidget {
 
     return TableRow(
       children: [
-        _buildCell(subject, color: subjectColor),
+        _buildCell(subject, color: subjectColor, textColor: Colors.white),
         _buildCell('', color: exceedsColor),
         _buildCell('', color: alwaysColor),
         _buildCell('', color: sometimesColor),
@@ -175,20 +191,22 @@ class ResultEnglishView extends StatelessWidget {
   }
 
   Widget _buildCell(String text,
-      {bool isHeader = false, Color color = Colors.transparent}) {
+      {bool isHeader = false,
+      Color color = Colors.transparent,
+      Color textColor = Colors.black}) {
     return Container(
-      height: 50, // تحديد ارتفاع الخلية
+      height: 50,
       decoration: BoxDecoration(
         color: color,
-        border: Border.all(color: Colors.grey.shade400), // إضافة حدود
+        border: Border.all(color: Colors.grey.shade400),
       ),
       child: Center(
         child: Text(
           text,
           style: TextStyle(
-            fontSize: 12,
+            fontSize: 9,
             fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-            color: isHeader ? Colors.white : Colors.black,
+            color: textColor, // تعيين لون النص هنا
           ),
           textAlign: TextAlign.center,
         ),

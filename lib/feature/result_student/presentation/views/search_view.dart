@@ -62,7 +62,10 @@ class _SearchViewState extends State<SearchView> {
                                 builder: (context) => const PasswardAdmin()),
                           );
                         },
-                        icon: const Icon(Icons.three_p_outlined))
+                        icon: const Icon(
+                          Icons.three_p_outlined,
+                          color: Color.fromARGB(251, 247, 246, 246),
+                        ))
                   ],
                 ),
                 SizedBox(
