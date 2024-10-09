@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../data/model/execl_model.dart'; /////////////////////////////////////// change
+import '../../data/model/execl_model.dart';
 
 class ResultArabicGradeView extends StatelessWidget {
   const ResultArabicGradeView({super.key, required this.student});
@@ -36,24 +35,41 @@ class ResultArabicGradeView extends StatelessWidget {
                       const SizedBox(height: 8),
                       Text(
                         'تهانينا\n${student.grade}',
-                        style:
-                            const TextStyle(fontSize: 22, color: Colors.blue),
+                        style: const TextStyle(
+                          fontSize: 22,
+                          color: Colors.blue,
+                        ),
                         textAlign: TextAlign.center,
                       ),
-                      const SizedBox(height: 16),
                       Padding(
                         padding: const EdgeInsets.only(left: 8),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              " ${student.studentName} : الاسم ",
-                              style: const TextStyle(fontSize: 18),
+                            Text.rich(
+                              TextSpan(
+                                children: [
+                                  const TextSpan(
+                                    text: "الاسم: ",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                    text: student.studentName,
+                                    style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                              textAlign: TextAlign.right,
                             ),
                           ],
                         ),
                       ),
                       const SizedBox(height: 16),
+                      // جدول المواد الأساسية
                       Table(
                         border: TableBorder.all(),
                         columnWidths: const {
@@ -71,22 +87,98 @@ class ResultArabicGradeView extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 16),
+                      // قسم مواد خارج المجموع
+                      const Text(
+                        'مواد خارج المجموع',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 8),
+                      Table(
+                        border: TableBorder.all(),
+                        columnWidths: const {
+                          0: FlexColumnWidth(1),
+                          1: FlexColumnWidth(1),
+                        },
+                        children: [
+                          _buildHeaderRow(),
+                          ...student.additionalSubjects.entries.map((entry) {
+                            return _buildRow(
+                              entry.key,
+                              entry.value.toDouble(),
+                            );
+                          })
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      // عرض المجموع
+                      if (student.total != null) ...[
+                        const SizedBox(height: 16),
+                        const Text(
+                          'المجموع',
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 8),
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(
+                                255, 164, 189, 233), // لون الخلفية
+                            borderRadius:
+                                BorderRadius.circular(10), // زوايا دائرية
+                            border: Border.all(
+                              color: Colors.black, // لون الحد
+                              width: 2, // عرض الحد
+                            ),
+                          ),
+                          child: Center(
+                            child: Text(
+                              student.total.toString(),
+                              style: const TextStyle(
+                                  fontSize: 24,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                      ],
+                      const SizedBox(height: 16),
                       curWidth < 600
                           ? const Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text('المسؤول الإداري: كارولين ثروت'),
+                                Text(
+                                  'المسؤول الإداري: كارولين ثروت',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
                                 SizedBox(height: 4),
-                                Text('مشرفه المرحلة الابتدائية: أماني عديب'),
+                                Text(
+                                  'مشرفة المرحلة الابتدائية: أماني عديب',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
                                 SizedBox(height: 4),
-                                Text('مديره المدرسة: نسرين منجد'),
+                                Text(
+                                  'مديرة المدرسة: نسرين منجد',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
                               ],
                             )
                           : const Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text('المسؤول الإداري: كارولين ثروت'),
-                                Text('مشرفة المرحلة الابتدائية: أماني عديب'),
+                                Text(
+                                  'المسؤول الإداري: كارولين ثروت',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  'مديرة المدرسة: نسرين منجد',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  'مشرفة المرحلة الابتدائية: أماني عديب',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
                               ],
                             ),
                     ],
@@ -103,10 +195,10 @@ class ResultArabicGradeView extends StatelessWidget {
   TableRow _buildHeaderRow() {
     return TableRow(
       children: [
-        _buildCell('Subject\n  ',
-            isHeader: true, color: const Color.fromARGB(255, 82, 116, 175)),
-        _buildCell('Grade\n  ',
-            isHeader: true, color: const Color.fromARGB(255, 82, 116, 175)),
+        _buildCell('الماده\n  ',
+            isHeader: true, color: const Color.fromARGB(255, 164, 189, 233)),
+        _buildCell('الدرجه\n  ',
+            isHeader: true, color: const Color.fromARGB(255, 164, 189, 233)),
       ],
     );
   }
@@ -114,7 +206,10 @@ class ResultArabicGradeView extends StatelessWidget {
   TableRow _buildRow(String subject, double grade) {
     return TableRow(
       children: [
-        _buildCell(subject, color: const Color.fromARGB(255, 82, 116, 175)),
+        _buildCell(
+          subject,
+          color: Colors.white,
+        ),
         _buildCell(grade.toString(), color: Colors.white),
       ],
     );

@@ -10,68 +10,141 @@ class SearchView extends StatefulWidget {
   State<SearchView> createState() => _SearchViewState();
 }
 
-class _SearchViewState extends State<SearchView> {
+class _SearchViewState extends State<SearchView> with TickerProviderStateMixin {
   final TextEditingController searchController = TextEditingController();
 
-  String? selectedYear;
-  String? selectedCategory;
+  // Animation Controllers and Animations for each component
+  late AnimationController _logoController;
+  late AnimationController _textCustomController;
+  late AnimationController _searchSquareController;
+
+  late Animation<Offset> _logoAnimation;
+  late Animation<Offset> _textCustomAnimation;
+  late Animation<Offset> _searchSquareAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Initialize animation controllers
+    _logoController = AnimationController(
+      duration: const Duration(milliseconds: 1000),
+      vsync: this,
+    );
+    _textCustomController = AnimationController(
+      duration: const Duration(milliseconds: 1000),
+      vsync: this,
+    );
+    _searchSquareController = AnimationController(
+      duration: const Duration(milliseconds: 1000),
+      vsync: this,
+    );
+
+    // Initialize animations with slight delay
+    _logoAnimation = Tween<Offset>(
+      begin: const Offset(0, -1), // Start above the screen
+      end: Offset.zero,
+    ).animate(
+      CurvedAnimation(parent: _logoController, curve: Curves.easeOut),
+    );
+
+    _textCustomAnimation = Tween<Offset>(
+      begin: const Offset(-1, 0), // Start from the left
+      end: Offset.zero,
+    ).animate(
+      CurvedAnimation(parent: _textCustomController, curve: Curves.easeOut),
+    );
+
+    _searchSquareAnimation = Tween<Offset>(
+      begin: const Offset(0, 1), // Start below the screen
+      end: Offset.zero,
+    ).animate(
+      CurvedAnimation(parent: _searchSquareController, curve: Curves.easeOut),
+    );
+
+    // Start animations with delays
+    Future.delayed(const Duration(milliseconds: 300), () {
+      _textCustomController.forward();
+    });
+    Future.delayed(const Duration(milliseconds: 600), () {
+      _logoController.forward();
+    });
+    Future.delayed(const Duration(milliseconds: 900), () {
+      _searchSquareController.forward();
+    });
+  }
 
   @override
   void dispose() {
-    super.dispose();
     searchController.dispose();
+    _logoController.dispose();
+    _textCustomController.dispose();
+    _searchSquareController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final isSmallScreen = screenWidth < 600;
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(251, 247, 246, 246),
-      body: InteractiveViewer(
-        minScale: 0.5,
-        maxScale: 2.0,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: isSmallScreen ? 50 : 0,
-                ),
-                Row(
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(height: isSmallScreen ? 50 : 0),
+
+              // TextCustom with slide animation
+              SlideTransition(
+                position: _textCustomAnimation,
+                child: Row(
                   children: [
                     Padding(
                       padding: EdgeInsets.only(left: isSmallScreen ? 0 : 100),
                       child: const TextCustom(),
                     ),
                     const Spacer(),
-                    Padding(
-                      padding: EdgeInsets.only(right: isSmallScreen ? 0 : 100),
-                      child: Image.asset(
-                        "lib/assets/logo.jpg",
-                        scale: isSmallScreen ? 10 : 3.5,
+
+                    // Logo with slide animation
+                    SlideTransition(
+                      position: _logoAnimation,
+                      child: Padding(
+                        padding:
+                            EdgeInsets.only(right: isSmallScreen ? 0 : 100),
+                        child: Image.asset(
+                          "lib/assets/logo.jpg",
+                          scale: isSmallScreen ? 10 : 3.5,
+                        ),
                       ),
                     ),
                     IconButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const PasswardAdmin()),
-                          );
-                        },
-                        icon: const Icon(
-                          Icons.three_p_outlined,
-                          color: Color.fromARGB(251, 247, 246, 246),
-                        ))
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const PasswardAdmin(),
+                          ),
+                        );
+                      },
+                      icon: const Icon(
+                        Icons.three_p_outlined,
+                        color: Color.fromARGB(251, 247, 246, 246),
+                      ),
+                    ),
                   ],
                 ),
-                SizedBox(
-                  height: isSmallScreen ? 50 : 0,
-                ),
-                Center(
+              ),
+
+              SizedBox(height: isSmallScreen ? 50 : 0),
+
+              // SearchSquare with slide animation
+              SlideTransition(
+                position: _searchSquareAnimation,
+                child: Center(
                   child: Padding(
                     padding: EdgeInsets.only(left: isSmallScreen ? 0 : 50),
                     child: SearchSquare(
@@ -79,8 +152,8 @@ class _SearchViewState extends State<SearchView> {
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

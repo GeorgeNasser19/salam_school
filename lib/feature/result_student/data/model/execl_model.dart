@@ -7,32 +7,47 @@ class ExeclModel {
   final String studentName;
   final String grade;
   final String language;
-  final LinkedHashMap<String, double> subjects;
+  final double? total; // المجموع قد يكون null إذا لم يكن موجودًا
+  final LinkedHashMap<String, double> subjects; // المواد الأساسية
+  final LinkedHashMap<String, double> additionalSubjects; // المواد الإضافية
 
-  // Updated constructor to have all fields in curly braces for consistency
   ExeclModel({
     required this.studentId,
     required this.studentName,
     required this.grade,
     required this.language,
+    this.total, // المجموع هنا قد يكون null
     required this.subjects,
+    required this.additionalSubjects,
   });
 
-  factory ExeclModel.fromExcelRow(List<Data?> row, List<String> subjectNames) {
+  factory ExeclModel.fromExcelRow(List<Data?> row, List<String> subjectNames,
+      List<String> additionalSubjectNames, double? total) {
     LinkedHashMap<String, double> subjects = LinkedHashMap();
+    LinkedHashMap<String, double> additionalSubjects = LinkedHashMap();
 
+    // معالجة المواد الأساسية
     for (int i = 0; i < subjectNames.length; i++) {
       double value = double.tryParse(row[i + 4]?.value.toString() ?? '0') ?? 0;
-      subjects[subjectNames[i]] =
-          double.parse(value.toStringAsFixed(1)); // تحويل القيمة إلى int
+      subjects[subjectNames[i]] = value;
+    }
+
+    // معالجة المواد الإضافية
+    for (int i = 0; i < additionalSubjectNames.length; i++) {
+      double value = double.tryParse(
+              row[i + subjectNames.length + 4]?.value.toString() ?? '0') ??
+          0;
+      additionalSubjects[additionalSubjectNames[i]] = value;
     }
 
     return ExeclModel(
-      studentId: row[0]?.value.toString() ?? '', // ID
-      studentName: row[1]?.value.toString() ?? '', // Name
-      grade: row[2]?.value.toString() ?? '', // Grade
-      language: row[3]?.value.toString() ?? '', // Language
+      studentId: row[0]?.value.toString() ?? '',
+      studentName: row[1]?.value.toString() ?? '',
+      grade: row[2]?.value.toString() ?? '',
+      language: row[3]?.value.toString() ?? '',
+      total: total, // المجموع إذا وُجد
       subjects: subjects,
+      additionalSubjects: additionalSubjects,
     );
   }
 
@@ -41,8 +56,10 @@ class ExeclModel {
       'student_id': studentId,
       'name': studentName,
       'grade': grade,
+      'language': language,
+      'total': total, // المجموع هنا سيكون اختياريًا
       'subjects': subjects,
-      'language': language, // Language field in JSON
+      'additional_subjects': additionalSubjects,
     };
   }
 }
