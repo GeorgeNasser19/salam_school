@@ -26,7 +26,7 @@ class PasswardAdmin extends StatelessWidget {
           ),
           ElevatedButton(
               onPressed: () {
-                if (textcontroller.text == "!sls@2024") {
+                if (textcontroller.text == "!999") {
                   Navigator.push(
                       context,
                       MaterialPageRoute(

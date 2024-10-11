@@ -34,7 +34,7 @@ class TextCustom extends StatelessWidget {
               fontWeight: FontWeight.bold),
         ),
         Text(
-          "Al Kawthar district-Sohage",
+          "Al Kawthar district-Sohag",
           textAlign: TextAlign.center,
           style: TextStyle(
               color: Colors.black,

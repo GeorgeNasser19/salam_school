@@ -12,7 +12,7 @@ class TextfieldCustom extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       controller: searchController,
-      style: const TextStyle(color: Colors.white),
+      style: const TextStyle(color: Colors.black),
       decoration: InputDecoration(
         filled: true,
         fillColor: Colors.white70,
