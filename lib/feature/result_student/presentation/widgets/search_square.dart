@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:salam_school/feature/result_student/presentation/views/result_adby_view.dart';
 import 'package:salam_school/feature/result_student/presentation/views/result_arabic_view.dart';
-import 'package:salam_school/feature/result_student/presentation/views/result_3lmy_view.dart';
 import 'package:salam_school/feature/result_student/presentation/views/result_english_view.dart';
 import 'package:salam_school/feature/result_student/presentation/widgets/text_field_costum.dart';
-
 import '../cubits/fetch_data_cubit/cubit/fetch_data_cubit.dart';
 import '../cubits/fetch_data_cubit/cubit/fetch_data_state.dart';
 import '../views/result_arabic_grade_view.dart';
@@ -213,11 +210,12 @@ class _SearchSquareState extends State<SearchSquare> {
                         ),
                       );
                     } else if (selectedYear == "secondary 2" &&
-                        selectedSubCategory == "علمي") {
+                        (selectedSubCategory == "علمي" ||
+                            selectedSubCategory == "ادبي")) {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Result3mlyView(
+                          builder: (context) => ResultArabicGradeView(
                             student: state.student,
                           ),
                         ),
@@ -247,26 +245,6 @@ class _SearchSquareState extends State<SearchSquare> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => ResultArabicGradeView(
-                            student: state.student,
-                          ),
-                        ),
-                      );
-                    } else if (selectedYear == "secondary 2" &&
-                        selectedSubCategory == "علمي") {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Result3mlyView(
-                            student: state.student,
-                          ),
-                        ),
-                      );
-                    } else if (selectedYear == "secondary 2" &&
-                        selectedSubCategory == "ادبي") {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ResultAdbyView(
                             student: state.student,
                           ),
                         ),

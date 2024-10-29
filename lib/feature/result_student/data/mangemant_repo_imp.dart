@@ -163,13 +163,16 @@ class MangemantRepoImp extends MangemantRepo {
 
             if (!stopFound) {
               // القيم الأساسية قبل "STOP"
-              subjectValues.add(double.tryParse(cellValue) ?? 0.0);
+              subjectValues.add(double.parse(
+                  (double.tryParse(cellValue) ?? 0.0).toStringAsFixed(1)));
             } else if (!stop2Found) {
               // القيم الإضافية بين "STOP" و "STOP2"
-              additionalSubjectValues.add(double.tryParse(cellValue) ?? 0.0);
+              additionalSubjectValues.add(double.parse(
+                  (double.tryParse(cellValue) ?? 0.0).toStringAsFixed(1)));
             } else if (stop2Found && totalValue == null) {
               // القيمة بعد "STOP2" هي المجموع
-              totalValue = double.tryParse(cellValue) ?? 0.0;
+              totalValue = double.parse(
+                  (double.tryParse(cellValue) ?? 0.0).toStringAsFixed(1));
             }
           }
 
@@ -180,8 +183,8 @@ class MangemantRepoImp extends MangemantRepo {
             grade: row[2]?.value.toString() ?? '',
             language: row[3]?.value.toString() ?? '',
             total: totalValue,
-            subjects: LinkedHashMap.fromIterables(subjectNames, subjectValues),
-            additionalSubjects: LinkedHashMap.fromIterables(
+            subjects: Map.fromIterables(subjectNames, subjectValues),
+            additionalSubjects: Map.fromIterables(
                 additionalSubjectNames, additionalSubjectValues),
           );
 

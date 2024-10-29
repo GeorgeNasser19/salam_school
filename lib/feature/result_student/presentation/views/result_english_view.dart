@@ -15,15 +15,15 @@ class ResultEnglishView extends StatelessWidget {
         backgroundColor: Colors.white,
         body: Stack(
           children: [
-            Image.asset(
-              "lib/assets/stack.png",
-              fit: BoxFit.cover,
-              width: curWidth < 600 ? 500 : double.infinity,
-              height: curWidth < 600
-                  ? 1000
-                  : double
-                      .infinity, // opacity: const AlwaysStoppedAnimation(.5),
-            ),
+            // Image.asset(
+            //   "lib/assets/stack.png",
+            //   fit: BoxFit.cover,
+            //   width: curWidth < 600 ? 500 : double.infinity,
+            //   height: curWidth < 600
+            //       ? 1000
+            //       : double
+            //           .infinity, // opacity: const AlwaysStoppedAnimation(.5),
+            // ),
             LayoutBuilder(
               builder: (context, constraints) {
                 return Stack(
@@ -114,10 +114,10 @@ class ResultEnglishView extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(
-                                            'Administrative official: Caroline Thrwat'),
-                                        Text(
-                                            'Primary stage supervisor: Amany Adeeb'),
+                                        // Text(
+                                        //     'Administrative official: Caroline Thrwat'),
+                                        // Text(
+                                        //     'Primary stage supervisor: Amany Adeeb'),
                                         Text(
                                             'School Principal: Nesreen Monged'),
                                       ],

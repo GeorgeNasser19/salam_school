@@ -8,8 +8,8 @@ class ExeclModel {
   final String grade;
   final String language;
   final double? total; // المجموع قد يكون null إذا لم يكن موجودًا
-  final LinkedHashMap<String, double> subjects; // المواد الأساسية
-  final LinkedHashMap<String, double> additionalSubjects; // المواد الإضافية
+  final Map<String, double> subjects; // المواد الأساسية
+  final Map<String, double> additionalSubjects; // المواد الإضافية
 
   ExeclModel({
     required this.studentId,

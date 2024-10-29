@@ -84,11 +84,11 @@ class ResultArabicView extends StatelessWidget {
                               ? const Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text('المسؤول الإداري: كارولين ثروت'),
-                                    SizedBox(height: 4),
-                                    Text(
-                                        'مشرفه المرحلة الابتدائية: أماني عديب'),
-                                    SizedBox(height: 4),
+                                    // Text('المسؤول الإداري: كارولين ثروت'),
+                                    // SizedBox(height: 4),
+                                    // Text(
+                                    //     'مشرفه المرحلة الابتدائية: أماني عديب'),
+                                    // SizedBox(height: 4),
                                     Text('مديره المدرسة: نسرين منجد'),
                                   ],
                                 )
@@ -96,9 +96,10 @@ class ResultArabicView extends StatelessWidget {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text('المسؤول الإداري: كارولين ثروت'),
-                                    Text(
-                                        'مشرفة المرحلة الابتدائية: أماني عديب'),
+                                    // Text('المسؤول الإداري: كارولين ثروت'),
+                                    // Text(
+                                    //     'مشرفة المرحلة الابتدائية: أماني عديب'),
+                                    Text('مديره المدرسة: نسرين منجد'),
                                   ],
                                 ),
                           const SizedBox(height: 8),
