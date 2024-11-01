@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../data/model/execl_model.dart';
 
-///////////////// isComplete = true
-///'
 class ResultEnglishView extends StatelessWidget {
   const ResultEnglishView({super.key, required this.student});
 
@@ -11,19 +9,23 @@ class ResultEnglishView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final curWidth = MediaQuery.of(context).size.width.toInt();
+    final isSmallScreen = curWidth < 600;
+
     return Scaffold(
         backgroundColor: Colors.white,
         body: Stack(
           children: [
-            // Image.asset(
-            //   "lib/assets/stack.png",
-            //   fit: BoxFit.cover,
-            //   width: curWidth < 600 ? 500 : double.infinity,
-            //   height: curWidth < 600
-            //       ? 1000
-            //       : double
-            //           .infinity, // opacity: const AlwaysStoppedAnimation(.5),
-            // ),
+            Positioned.fill(
+              child: Opacity(
+                opacity: .9,
+                child: Image.asset(
+                  isSmallScreen
+                      ? "lib/assets/Untitled design 2 .png"
+                      : "lib/assets/Untitled design.png",
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
             LayoutBuilder(
               builder: (context, constraints) {
                 return Stack(
@@ -32,7 +34,8 @@ class ResultEnglishView extends StatelessWidget {
                       width: double.infinity,
                       height: double.infinity,
                     ),
-                    Center(
+                    Padding(
+                      padding: EdgeInsets.only(left: isSmallScreen ? 0 : 800),
                       child: Container(
                         width: curWidth < 400 ? 500 : 1100,
                         height: 8000,
@@ -41,16 +44,39 @@ class ResultEnglishView extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text(curWidth.toString()),
+                              SizedBox(
+                                height: isSmallScreen ? 100 : 150,
+                              ),
                               Text(
                                 'Second Semester 2024\nProgress Report',
                                 style: TextStyle(
+                                    color: isSmallScreen
+                                        ? Colors.white
+                                        : Colors.black,
                                     fontSize: _getFontSize(
                                         context, 24), // Adjust font size
                                     fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.center,
                               ),
                               const SizedBox(height: 8),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Salam Sohag School",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: isSmallScreen
+                                              ? Colors.white
+                                              : Colors.black,
+                                          fontSize: _getFontSize(
+                                              context, 24)), // Adjust font size
+                                    ),
+                                  ],
+                                ),
+                              ),
                               Text(
                                 'Congratulations\n${student.grade}',
                                 style: TextStyle(
@@ -67,6 +93,10 @@ class ResultEnglishView extends StatelessWidget {
                                     Text(
                                       "Name : ${student.studentName}",
                                       style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: isSmallScreen
+                                              ? Colors.white
+                                              : Colors.black,
                                           fontSize: _getFontSize(
                                               context, 18)), // Adjust font size
                                     ),
@@ -95,33 +125,14 @@ class ResultEnglishView extends StatelessWidget {
                                 ],
                               ),
                               const SizedBox(height: 16),
-                              curWidth < 600
-                                  ? const Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                            'Administrative official: Caroline Thrwat'),
-                                        SizedBox(height: 4),
-                                        Text(
-                                            'Primary stage supervisor: Amany Adeeb'),
-                                        SizedBox(height: 4),
-                                        Text(
-                                            'School Principal: Nesreen Monged'),
-                                      ],
-                                    )
-                                  : const Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        // Text(
-                                        //     'Administrative official: Caroline Thrwat'),
-                                        // Text(
-                                        //     'Primary stage supervisor: Amany Adeeb'),
-                                        Text(
-                                            'School Principal: Nesreen Monged'),
-                                      ],
-                                    ),
+                              const Center(
+                                child: Text(
+                                  'School Principal: Nesreen Monged',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              )
                             ],
                           ),
                         ),
@@ -169,13 +180,13 @@ class ResultEnglishView extends StatelessWidget {
     Color sometimesColor = Colors.transparent;
     Color unacceptableColor = Colors.transparent;
 
-    if (grade >= 35 && grade <= 40) {
+    if (grade >= 90 && grade <= 100) {
       exceedsColor = Colors.blue;
-    } else if (grade >= 30 && grade < 35) {
+    } else if (grade >= 80 && grade < 89) {
       alwaysColor = Colors.green;
-    } else if (grade >= 25 && grade < 30) {
+    } else if (grade >= 70 && grade < 79) {
       sometimesColor = Colors.yellow;
-    } else if (grade < 25) {
+    } else if (grade < 50) {
       unacceptableColor = Colors.red;
     }
 

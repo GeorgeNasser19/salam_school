@@ -10,18 +10,32 @@ class ResultArabicView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final curWidth = MediaQuery.of(context).size.width.toInt();
+    final isSmallScreen = curWidth < 600;
+
     return Directionality(
-      textDirection: TextDirection.rtl, // تغيير الاتجاه إلى من اليمين لليسار
+      textDirection: TextDirection.rtl,
       child: Scaffold(
         backgroundColor: Colors.white,
         body: LayoutBuilder(builder: (context, constraints) {
           return Stack(
             children: [
+              Positioned.fill(
+                child: Opacity(
+                  opacity: .9,
+                  child: Image.asset(
+                    isSmallScreen
+                        ? "lib/assets/Untitled design 2 .png"
+                        : "lib/assets/Untitled design.png",
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
               const SizedBox(
                 width: double.infinity,
                 height: double.infinity,
               ),
-              Center(
+              Padding(
+                padding: EdgeInsets.only(left: isSmallScreen ? 0 : 800),
                 child: SizedBox(
                   width: curWidth < 400 ? 500 : 1100,
                   height: 8000,
@@ -29,13 +43,45 @@ class ResultArabicView extends StatelessWidget {
                     padding: const EdgeInsets.all(16.0),
                     child: SingleChildScrollView(
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const Text(
+                          if (isSmallScreen)
+                            SizedBox(
+                              height: student.subjects.entries.length <= 6
+                                  ? 100
+                                  : 50,
+                            ),
+                          if (!isSmallScreen)
+                            const SizedBox(
+                              height: 150,
+                            ),
+                          Text(
                             'تقرير التقدم - الفصل الدراسي الثاني 2024',
                             style: TextStyle(
-                                fontSize: 24, fontWeight: FontWeight.bold),
+                                color:
+                                    isSmallScreen ? Colors.white : Colors.black,
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold),
                             textAlign: TextAlign.center,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "السلام سوهاج الخاصه",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: isSmallScreen
+                                          ? Colors.white
+                                          : Colors.black,
+                                      fontSize: _getFontSize(
+                                          context, 24)), // Adjust font size
+                                ),
+                              ],
+                            ),
                           ),
                           const SizedBox(height: 8),
                           Text(
@@ -53,7 +99,11 @@ class ResultArabicView extends StatelessWidget {
                                 Text(
                                   "الاسم: ${student.studentName}",
                                   style: TextStyle(
-                                      fontSize: _getFontSize(context, 18)),
+                                      fontWeight: FontWeight.bold,
+                                      color: isSmallScreen
+                                          ? Colors.white
+                                          : Colors.black,
+                                      fontSize: _getFontSize(context, 22)),
                                 ),
                               ],
                             ),
@@ -80,28 +130,14 @@ class ResultArabicView extends StatelessWidget {
                             ],
                           ),
                           const SizedBox(height: 16),
-                          curWidth < 600
-                              ? const Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    // Text('المسؤول الإداري: كارولين ثروت'),
-                                    // SizedBox(height: 4),
-                                    // Text(
-                                    //     'مشرفه المرحلة الابتدائية: أماني عديب'),
-                                    // SizedBox(height: 4),
-                                    Text('مديره المدرسة: نسرين منجد'),
-                                  ],
-                                )
-                              : const Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    // Text('المسؤول الإداري: كارولين ثروت'),
-                                    // Text(
-                                    //     'مشرفة المرحلة الابتدائية: أماني عديب'),
-                                    Text('مديره المدرسة: نسرين منجد'),
-                                  ],
-                                ),
+                          Center(
+                              child: Text(
+                            'مديره المدرسة: نسرين منجد',
+                            style: TextStyle(
+                              fontSize: _getFontSize(context, 22),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )),
                           const SizedBox(height: 8),
                         ],
                       ),
@@ -143,25 +179,29 @@ class ResultArabicView extends StatelessWidget {
     );
   }
 
-  TableRow _buildRow(String subject, double grade, Color subjectColor) {
+  TableRow _buildRow(
+    String subject,
+    double grade,
+    Color subjectColor,
+  ) {
     Color exceedsColor = Colors.transparent;
     Color alwaysColor = Colors.transparent;
     Color sometimesColor = Colors.transparent;
     Color unacceptableColor = Colors.transparent;
 
-    if (grade >= 35 && grade <= 40) {
+    if (grade >= 90 && grade <= 100) {
       exceedsColor = Colors.blue;
-    } else if (grade >= 30 && grade < 35) {
+    } else if (grade >= 80 && grade < 89) {
       alwaysColor = Colors.green;
-    } else if (grade >= 25 && grade < 30) {
+    } else if (grade >= 70 && grade < 79) {
       sometimesColor = Colors.yellow;
-    } else if (grade < 25) {
+    } else if (grade < 50) {
       unacceptableColor = Colors.red;
     }
 
     return TableRow(
       children: [
-        _buildCell(subject, color: subjectColor),
+        _buildCell(subject, color: subjectColor, textColor: Colors.white),
         _buildCell('', color: exceedsColor),
         _buildCell('', color: alwaysColor),
         _buildCell('', color: sometimesColor),
@@ -171,7 +211,9 @@ class ResultArabicView extends StatelessWidget {
   }
 
   Widget _buildCell(String text,
-      {bool isHeader = false, Color color = Colors.transparent}) {
+      {bool isHeader = false,
+      Color color = Colors.transparent,
+      Color textColor = Colors.black}) {
     return Container(
       height: 50, // تحديد ارتفاع الخلية
       decoration: BoxDecoration(
@@ -184,7 +226,7 @@ class ResultArabicView extends StatelessWidget {
           style: TextStyle(
             fontSize: 12,
             fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-            color: isHeader ? Colors.white : Colors.black,
+            color: textColor,
           ),
           textAlign: TextAlign.center,
         ),

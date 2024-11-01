@@ -13,32 +13,32 @@ class TextCustom extends StatelessWidget {
           "Synod of the Nile",
           textAlign: TextAlign.center,
           style: TextStyle(
-              color: Colors.red,
-              fontSize: isSmallScreen ? 10 : 25,
+              color: const Color.fromARGB(255, 247, 16, 0),
+              fontSize: isSmallScreen ? 12.5 : 32,
               fontWeight: FontWeight.bold),
         ),
         Text(
           "Akhmim educational administration",
           textAlign: TextAlign.center,
           style: TextStyle(
-              color: Colors.black,
-              fontSize: isSmallScreen ? 10 : 25,
+              color: Colors.white,
+              fontSize: isSmallScreen ? 12.5 : 32,
               fontWeight: FontWeight.bold),
         ),
         Text(
           "El Salam Language Schools",
           textAlign: TextAlign.center,
           style: TextStyle(
-              color: Colors.red,
-              fontSize: isSmallScreen ? 10 : 25,
+              color: const Color.fromARGB(255, 255, 17, 0),
+              fontSize: isSmallScreen ? 12.5 : 32,
               fontWeight: FontWeight.bold),
         ),
         Text(
           "Al Kawthar district-Sohag",
           textAlign: TextAlign.center,
           style: TextStyle(
-              color: Colors.black,
-              fontSize: isSmallScreen ? 10 : 25,
+              color: Colors.white,
+              fontSize: isSmallScreen ? 12.5 : 32,
               fontWeight: FontWeight.bold),
         ),
       ],

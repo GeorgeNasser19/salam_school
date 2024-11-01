@@ -13,22 +13,13 @@ class TextfieldCustom extends StatelessWidget {
     return TextField(
       controller: searchController,
       style: const TextStyle(color: Colors.black),
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         filled: true,
         fillColor: Colors.white70,
         labelText: 'Enter Student ID',
-        labelStyle: const TextStyle(color: Colors.black),
+        labelStyle: TextStyle(color: Colors.black),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20),
-          borderSide: const BorderSide(color: Colors.white),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20),
-          borderSide: const BorderSide(color: Colors.white),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20),
-          borderSide: const BorderSide(color: Colors.white),
+          borderSide: BorderSide(color: Colors.black),
         ),
       ),
     );

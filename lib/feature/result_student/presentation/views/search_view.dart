@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:salam_school/feature/result_student/presentation/views/passward_admin.dart';
+import 'package:salam_school/feature/result_student/presentation/views/admin_view.dart';
 import 'package:salam_school/feature/result_student/presentation/widgets/search_square.dart';
 import 'package:salam_school/feature/result_student/presentation/widgets/text_custom.dart';
+
+import '../../data/mangemant_repo_imp.dart';
 
 class SearchView extends StatefulWidget {
   const SearchView({super.key});
@@ -21,6 +24,7 @@ class _SearchViewState extends State<SearchView> with TickerProviderStateMixin {
   late Animation<Offset> _logoAnimation;
   late Animation<Offset> _textCustomAnimation;
   late Animation<Offset> _searchSquareAnimation;
+  final textcontroller = TextEditingController();
 
   @override
   void initState() {
@@ -80,6 +84,7 @@ class _SearchViewState extends State<SearchView> with TickerProviderStateMixin {
     _logoController.dispose();
     _textCustomController.dispose();
     _searchSquareController.dispose();
+    textcontroller.dispose();
     super.dispose();
   }
 
@@ -89,73 +94,172 @@ class _SearchViewState extends State<SearchView> with TickerProviderStateMixin {
     final isSmallScreen = screenWidth < 600;
 
     return Scaffold(
-      backgroundColor: const Color.fromARGB(251, 247, 246, 246),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(height: isSmallScreen ? 50 : 0),
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: Opacity(
+              opacity: .9,
+              child: Image.asset(
+                isSmallScreen
+                    ? "lib/assets/Untitled design 2 .png"
+                    : "lib/assets/Untitled design.png",
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: isSmallScreen ? 20 : 0,
+                ),
+                // TextCustom with slide animation
+                SlideTransition(
+                  position: _textCustomAnimation,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: isSmallScreen ? 20 : 0,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding:
+                                EdgeInsets.only(left: isSmallScreen ? 0 : 100),
+                            child: const TextCustom(),
+                          ),
+                        ],
+                      ),
+                      const Spacer(),
 
-              // TextCustom with slide animation
-              SlideTransition(
-                position: _textCustomAnimation,
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: isSmallScreen ? 0 : 100),
-                      child: const TextCustom(),
-                    ),
-                    const Spacer(),
-
-                    // Logo with slide animation
-                    SlideTransition(
-                      position: _logoAnimation,
-                      child: Padding(
-                        padding:
-                            EdgeInsets.only(right: isSmallScreen ? 0 : 100),
-                        child: Image.asset(
-                          "lib/assets/logo.jpg",
-                          scale: isSmallScreen ? 10 : 3.5,
+                      // Logo with slide animation
+                      SlideTransition(
+                        position: _logoAnimation,
+                        child: Padding(
+                          padding:
+                              EdgeInsets.only(right: isSmallScreen ? 0 : 0),
+                          child: Image.asset(
+                            "lib/assets/logo-removebg-preview.png",
+                            scale: isSmallScreen ? 4.4 : 2.10,
+                          ),
                         ),
                       ),
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const PasswardAdmin(),
-                          ),
-                        );
-                      },
-                      icon: const Icon(
-                        Icons.three_p_outlined,
-                        color: Color.fromARGB(251, 247, 246, 246),
+                      IconButton(
+                        iconSize: .5,
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                    title: const Text("Teacher Only "),
+                                    actions: [
+                                      Column(
+                                        children: [
+                                          TextField(
+                                            controller: textcontroller,
+                                            decoration: const InputDecoration(
+                                              labelText: 'Password',
+                                              border: OutlineInputBorder(),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                          ElevatedButton(
+                                              onPressed: () {
+                                                if (textcontroller.text ==
+                                                    "!999") {
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) => AdminView(
+                                                            mangemantRepoImp:
+                                                                MangemantRepoImp(
+                                                                    FirebaseFirestore
+                                                                        .instance)),
+                                                      ));
+                                                }
+                                              },
+                                              child: const Text("go"))
+                                        ],
+                                      ),
+                                    ],
+                                  ));
+                        },
+                        icon: const Icon(
+                          Icons.three_p_outlined,
+                          color: Color.fromARGB(0, 32, 32, 32),
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-
-              SizedBox(height: isSmallScreen ? 50 : 0),
-
-              // SearchSquare with slide animation
-              SlideTransition(
-                position: _searchSquareAnimation,
-                child: Center(
-                  child: Padding(
-                    padding: EdgeInsets.only(left: isSmallScreen ? 0 : 50),
-                    child: SearchSquare(
-                      searchController: searchController,
-                    ),
+                    ],
                   ),
                 ),
-              ),
-            ],
+
+                // SearchSquare with slide animation
+                SlideTransition(
+                  position: _searchSquareAnimation,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Column(
+                        children: [
+                          SizedBox(
+                            height: isSmallScreen ? 20 : 100,
+                          ),
+                          Text(
+                            isSmallScreen
+                                ? "      Welcome \n   Salam School "
+                                : "Welcome to Salam\nSchool ",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: isSmallScreen ? 20 : 60,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            height: isSmallScreen ? 30 : 20,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                              left: isSmallScreen ? 0 : 130,
+                            ),
+                            child: isSmallScreen
+                                ? null
+                                : const Text(
+                                    "At Salam School, We provide a nurturing environment for students\n thrive academically and socially. Our dedicated staff is committed to\n fostering a love for learing in every child ",
+                                    style: TextStyle(
+                                        color: Color.fromARGB(255, 0, 80, 3),
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                          ),
+                          if (isSmallScreen)
+                            Padding(
+                              padding: const EdgeInsets.only(left: 30),
+                              child: SearchSquare(
+                                searchController: searchController,
+                              ),
+                            ),
+                          SizedBox(
+                            height: isSmallScreen ? 100 : 305,
+                          )
+                        ],
+                      ),
+                      if (!isSmallScreen)
+                        Padding(
+                          padding: const EdgeInsets.only(left: 150),
+                          child: SearchSquare(
+                            searchController: searchController,
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

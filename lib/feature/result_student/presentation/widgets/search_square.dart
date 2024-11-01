@@ -32,9 +32,9 @@ class _SearchSquareState extends State<SearchSquare> {
 
     return Container(
       height: isSmallScreen ? 400 : 600,
-      width: isSmallScreen ? screenWidth * 0.9 : 400,
+      width: isSmallScreen ? 330 : 400,
       decoration: BoxDecoration(
-        color: const Color(0xFFECECEC),
+        color: const Color(0xFFECECEC).withOpacity(0.35),
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
@@ -62,24 +62,25 @@ class _SearchSquareState extends State<SearchSquare> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text(
-                'Hello ',
+                'Salam School ',
                 style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
                     fontSize: 32,
                     fontWeight: FontWeight.bold),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 50),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(
                     child: DropdownButton<String>(
+                      iconEnabledColor: Colors.white,
                       value: selectedYear,
                       hint: const Text(
                         "Select Year",
-                        style: TextStyle(color: Colors.black),
+                        style: TextStyle(color: Colors.white),
                       ),
-                      dropdownColor: Colors.white,
+                      dropdownColor: Colors.black,
                       items: <String>[
                         'KG 1',
                         'KG 2',
@@ -98,7 +99,7 @@ class _SearchSquareState extends State<SearchSquare> {
                           value: value,
                           child: Text(
                             value,
-                            style: const TextStyle(color: Colors.black),
+                            style: const TextStyle(color: Colors.white),
                           ),
                         );
                       }).toList(),
@@ -117,12 +118,13 @@ class _SearchSquareState extends State<SearchSquare> {
                   const SizedBox(width: 20),
                   Expanded(
                     child: DropdownButton<String>(
+                      iconEnabledColor: Colors.white,
                       value: selectedCategory,
                       hint: const Text(
                         "Select Category",
-                        style: TextStyle(color: Colors.black),
+                        style: TextStyle(color: Colors.white),
                       ),
-                      dropdownColor: Colors.white,
+                      dropdownColor: Colors.black,
                       items: <String>[
                         'عربي',
                         'english',
@@ -131,7 +133,7 @@ class _SearchSquareState extends State<SearchSquare> {
                           value: value,
                           child: Text(
                             value,
-                            style: const TextStyle(color: Colors.black),
+                            style: const TextStyle(color: Colors.white),
                           ),
                         );
                       }).toList(),
@@ -147,12 +149,13 @@ class _SearchSquareState extends State<SearchSquare> {
               const SizedBox(height: 20),
               if (showSubCategoryDropdown)
                 DropdownButton<String>(
+                  iconEnabledColor: Colors.white,
                   value: selectedSubCategory,
                   hint: const Text(
                     "Select Subcategory",
-                    style: TextStyle(color: Colors.black),
+                    style: TextStyle(color: Colors.white),
                   ),
-                  dropdownColor: Colors.white,
+                  dropdownColor: Colors.black,
                   items: <String>[
                     'علمي',
                     'ادبي',
@@ -161,7 +164,7 @@ class _SearchSquareState extends State<SearchSquare> {
                       value: value,
                       child: Text(
                         value,
-                        style: const TextStyle(color: Colors.black),
+                        style: const TextStyle(color: Colors.white),
                       ),
                     );
                   }).toList(),
