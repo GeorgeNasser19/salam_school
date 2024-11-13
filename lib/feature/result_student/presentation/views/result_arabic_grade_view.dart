@@ -21,8 +21,8 @@ class ResultArabicGradeView extends StatelessWidget {
                 opacity: .9,
                 child: Image.asset(
                   isSmallScreen
-                      ? "lib/assets/Untitled design 2 .png"
-                      : "lib/assets/Untitled design.png",
+                      ? "lib/assets/last edit small .png"
+                      : "lib/assets/last edit .png",
                   fit: BoxFit.cover,
                 ),
               ),

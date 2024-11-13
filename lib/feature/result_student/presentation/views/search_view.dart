@@ -101,8 +101,8 @@ class _SearchViewState extends State<SearchView> with TickerProviderStateMixin {
               opacity: .9,
               child: Image.asset(
                 isSmallScreen
-                    ? "lib/assets/Untitled design 2 .png"
-                    : "lib/assets/Untitled design.png",
+                    ? "lib/assets/last edit small .png"
+                    : "lib/assets/last edit .png",
                 fit: BoxFit.cover,
               ),
             ),
@@ -229,7 +229,7 @@ class _SearchViewState extends State<SearchView> with TickerProviderStateMixin {
                                 : const Text(
                                     "At Salam School, We provide a nurturing environment for students\n thrive academically and socially. Our dedicated staff is committed to\n fostering a love for learing in every child ",
                                     style: TextStyle(
-                                        color: Color.fromARGB(255, 0, 80, 3),
+                                        color: Colors.white,
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold),
                                   ),
