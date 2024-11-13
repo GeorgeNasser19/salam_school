@@ -62,7 +62,7 @@ class _SearchSquareState extends State<SearchSquare> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text(
-                'Salam School ',
+                'Salam Sohag ',
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 32,

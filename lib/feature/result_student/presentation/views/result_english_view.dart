@@ -20,8 +20,8 @@ class ResultEnglishView extends StatelessWidget {
                 opacity: .9,
                 child: Image.asset(
                   isSmallScreen
-                      ? "lib/assets/last edit small .png"
-                      : "lib/assets/last edit .png",
+                      ? "lib/assets/last edit small.png"
+                      : "lib/assets/last edit.png",
                   fit: BoxFit.cover,
                 ),
               ),
