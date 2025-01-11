@@ -32,7 +32,6 @@ class ExeclModel {
       subjects[subjectNames[i]] = value;
     }
 
-    // معالجة المواد الإضافية
     for (int i = 0; i < additionalSubjectNames.length; i++) {
       double value = double.tryParse(
               row[i + subjectNames.length + 4]?.value.toString() ?? '0') ??
@@ -51,6 +50,17 @@ class ExeclModel {
     );
   }
 
+  /// Serialize this object to a JSON-encodable map.
+  ///
+  /// The map will have the following structure:
+  ///
+  /// - `student_id`: the student ID
+  /// - `name`: the student name
+  /// - `grade`: the student grade
+  /// - `language`: the student language
+  /// - `total`: the student total if it exists
+  /// - `subjects`: the student subjects
+  /// - `additional_subjects`: the student additional subjects
   Map<String, dynamic> toJson() {
     return {
       'student_id': studentId,

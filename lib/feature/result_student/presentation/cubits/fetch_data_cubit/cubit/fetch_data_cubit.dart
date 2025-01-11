@@ -8,6 +8,10 @@ class FetchDataCubit extends Cubit<FetchDataState> {
 
   final MangemantRepoImp mangemantRepoImp;
 
+  /// Fetches data from the repository.
+  ///
+  /// Emits [FetchDataStateLoading] and then either
+  /// [FetchDataStateSuccess] or [FetchDataStateFailure] based on the result.
   Future<void> fetchData(
       String studentID, String selectedYear, String selectedLanguage) async {
     emit(FetchDataStateLoading());

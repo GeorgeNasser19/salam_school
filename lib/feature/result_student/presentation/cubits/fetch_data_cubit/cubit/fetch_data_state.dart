@@ -30,3 +30,5 @@ class FetchDataStateFailure extends FetchDataState {
   @override
   List<Object> get props => [error];
 }
+
+

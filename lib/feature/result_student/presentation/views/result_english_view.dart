@@ -82,7 +82,7 @@ class ResultEnglishView extends StatelessWidget {
                                 style: TextStyle(
                                     fontSize: _getFontSize(
                                         context, 22), // Adjust font size
-                                    color: Colors.blue),
+                                    color: Colors.black),
                                 textAlign: TextAlign.center,
                               ),
                               Padding(
@@ -119,15 +119,15 @@ class ResultEnglishView extends StatelessWidget {
                                     return _buildRow(
                                       entry.key,
                                       entry.value.toDouble(),
-                                      const Color.fromARGB(255, 82, 116, 175),
+                                      const Color.fromARGB(255, 255, 255, 255),
                                     );
                                   })
                                 ],
-                              ),
+                              ),  
                               const SizedBox(height: 16),
                               const Center(
                                 child: Text(
-                                  'School Principal: Nesreen Monged',
+                                  'School Principal\nNesreen Monged',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -163,7 +163,7 @@ class ResultEnglishView extends StatelessWidget {
     return TableRow(
       children: [
         _buildCell('Subject\n  ',
-            isHeader: true, color: const Color.fromARGB(255, 82, 116, 175)),
+            isHeader: true, color: const Color.fromARGB(255, 243, 243, 243)),
         _buildCell('Exceeds\nExpectations', isHeader: true, color: Colors.blue),
         _buildCell('Always meets\nExpectations',
             isHeader: true, color: Colors.green),
@@ -180,23 +180,23 @@ class ResultEnglishView extends StatelessWidget {
     Color sometimesColor = Colors.transparent;
     Color unacceptableColor = Colors.transparent;
 
-    if (grade >= 90 && grade <= 100) {
+    if (grade >= 80 && grade <= 100) {
       exceedsColor = Colors.blue;
-    } else if (grade >= 80 && grade < 89) {
+    } else if (grade >= 65 && grade < 79) {
       alwaysColor = Colors.green;
-    } else if (grade >= 70 && grade < 79) {
+    } else if (grade >= 50 && grade < 64) {
       sometimesColor = Colors.yellow;
-    } else if (grade < 50) {
+    } else if (grade < 49) {
       unacceptableColor = Colors.red;
     }
 
     return TableRow(
       children: [
-        _buildCell(subject, color: subjectColor, textColor: Colors.white),
-        _buildCell('', color: exceedsColor),
-        _buildCell('', color: alwaysColor),
-        _buildCell('', color: sometimesColor),
-        _buildCell('', color: unacceptableColor),
+        _buildCell(subject, color: subjectColor, textColor: Colors.black ,isHeader: true),
+        _buildCell('', color: exceedsColor,textColor: Colors.black),
+        _buildCell('', color: alwaysColor,textColor: Colors.black),
+        _buildCell('', color: sometimesColor,textColor: Colors.black),
+        _buildCell('', color: unacceptableColor,textColor: Colors.black),
       ],
     );
   }
@@ -205,6 +205,7 @@ class ResultEnglishView extends StatelessWidget {
       {bool isHeader = false,
       Color color = Colors.transparent,
       Color textColor = Colors.black}) {
+   
     return Container(
       height: 50,
       decoration: BoxDecoration(
@@ -215,7 +216,7 @@ class ResultEnglishView extends StatelessWidget {
         child: Text(
           text,
           style: TextStyle(
-            fontSize: 9,
+            fontSize: 12,
             fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
             color: textColor, // تعيين لون النص هنا
           ),

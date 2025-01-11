@@ -87,7 +87,7 @@ class ResultArabicView extends StatelessWidget {
                           Text(
                             'تهانينا\n${student.grade}',
                             style: const TextStyle(
-                                fontSize: 22, color: Colors.blue),
+                                fontSize: 22, color: Colors.black),
                             textAlign: TextAlign.center,
                           ),
                           Padding(
@@ -124,7 +124,7 @@ class ResultArabicView extends StatelessWidget {
                                 return _buildRow(
                                   entry.key,
                                   entry.value.toDouble(),
-                                  const Color.fromARGB(255, 82, 116, 175),
+                                  const Color.fromARGB(255, 255, 255, 255),
                                 );
                               })
                             ],
@@ -164,11 +164,11 @@ class ResultArabicView extends StatelessWidget {
     return baseSize;
   }
 
-  TableRow _buildHeaderRow() {
+  TableRow  _buildHeaderRow() {
     return TableRow(
       children: [
         _buildCell('المادة\n  ',
-            isHeader: false, color: const Color.fromARGB(255, 82, 116, 175)),
+            isHeader: false, color: const Color.fromARGB(255, 250, 251, 252)),
         _buildCell('متفوق\nفي التوقعات', isHeader: true, color: Colors.blue),
         _buildCell('يلبي دائمًا\nالتوقعات',
             isHeader: true, color: Colors.green),
@@ -189,23 +189,23 @@ class ResultArabicView extends StatelessWidget {
     Color sometimesColor = Colors.transparent;
     Color unacceptableColor = Colors.transparent;
 
-    if (grade >= 90 && grade <= 100) {
+    if (grade >= 80 && grade <= 100) {
       exceedsColor = Colors.blue;
-    } else if (grade >= 80 && grade < 89) {
+    } else if (grade >= 65 && grade < 79) {
       alwaysColor = Colors.green;
-    } else if (grade >= 70 && grade < 79) {
+    } else if (grade >= 50 && grade < 64) {
       sometimesColor = Colors.yellow;
-    } else if (grade < 50) {
+    } else if (grade < 49) {
       unacceptableColor = Colors.red;
     }
 
-    return TableRow(
+   return TableRow(
       children: [
-        _buildCell(subject, color: subjectColor, textColor: Colors.white),
-        _buildCell('', color: exceedsColor),
-        _buildCell('', color: alwaysColor),
-        _buildCell('', color: sometimesColor),
-        _buildCell('', color: unacceptableColor),
+        _buildCell(subject, color: subjectColor, textColor: Colors.black,isHeader: true),
+        _buildCell('', color: exceedsColor,textColor: Colors.black),
+        _buildCell('', color: alwaysColor,textColor: Colors.black),
+        _buildCell('', color: sometimesColor,textColor: Colors.black),
+        _buildCell('', color: unacceptableColor,textColor: Colors.black),
       ],
     );
   }

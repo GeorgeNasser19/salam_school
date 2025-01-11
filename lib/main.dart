@@ -8,6 +8,19 @@ import 'package:salam_school/firebase_options.dart';
 
 import 'feature/result_student/presentation/views/search_view.dart';
 
+  /// Initializes the Firebase app and then runs the app's widget tree.
+  ///
+  /// This function is the top-level entry point of the app, and is called when
+  /// the app is launched. It initializes the Firebase app by calling
+  /// [Firebase.initializeApp] with the platform-specific configuration options
+  /// from [DefaultFirebaseOptions.currentPlatform].
+  ///
+  /// After initializing the Firebase app, it runs the app's widget tree by
+  /// calling [runApp] with the top-level widget of the app, [MyApp].
+  ///
+  /// This function is marked as `async` because [Firebase.initializeApp] returns
+  /// a [Future]. The function uses the `await` keyword to wait for the
+  /// initialization to complete before running the app's widget tree.
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
