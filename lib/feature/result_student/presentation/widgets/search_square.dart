@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:salam_school/feature/result_student/presentation/views/result_arabic_view.dart';
-import 'package:salam_school/feature/result_student/presentation/views/result_english_view.dart';
 import 'package:salam_school/feature/result_student/presentation/widgets/text_field_costum.dart';
 import '../cubits/fetch_data_cubit/cubit/fetch_data_cubit.dart';
 import '../cubits/fetch_data_cubit/cubit/fetch_data_state.dart';
 import '../views/result_arabic_grade_view.dart';
+import '../views/result_kg_arabic_view.dart';
+import '../views/result_kg_english_view.dart';
 
 class SearchSquare extends StatefulWidget {
   const SearchSquare({
@@ -82,6 +82,7 @@ class _SearchSquareState extends State<SearchSquare> {
                       ),
                       dropdownColor: Colors.black,
                       items: <String>[
+                        "Baby Class",
                         'KG 1',
                         'KG 2',
                         'Grade 1',
@@ -190,13 +191,22 @@ class _SearchSquareState extends State<SearchSquare> {
                         selectedYear == "Grade 3" ||
                         selectedYear == "Grade 4" ||
                         selectedYear == "Grade 5" ||
-                        selectedYear == "Grade 6" ||
-                        selectedYear == "KG 1" ||
-                        selectedYear == "KG 2")) {
+                        selectedYear == "Grade 6")) {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ResultEnglishView(
+                          builder: (context) => ResultKgEnglishView(
+                            student: state.student,
+                          ),
+                        ),
+                      );
+                    } else if (selectedYear == "Baby Class" ||
+                        selectedYear == "KG 1" ||
+                        selectedYear == "KG 2") {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ResultKgEnglishView(
                             student: state.student,
                           ),
                         ),
@@ -230,13 +240,22 @@ class _SearchSquareState extends State<SearchSquare> {
                         selectedYear == "Grade 3" ||
                         selectedYear == "Grade 4" ||
                         selectedYear == "Grade 5" ||
-                        selectedYear == "Grade 6" ||
-                        selectedYear == "KG 1" ||
-                        selectedYear == "KG 2")) {
+                        selectedYear == "Grade 6")) {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ResultArabicView(
+                          builder: (context) => ResultKgArabicView(
+                            student: state.student,
+                          ),
+                        ),
+                      );
+                    } else if (selectedYear == "Baby Class" ||
+                        selectedYear == "KG 1" ||
+                        selectedYear == "KG 2") {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ResultKgArabicView(
                             student: state.student,
                           ),
                         ),

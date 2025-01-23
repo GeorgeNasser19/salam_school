@@ -48,10 +48,10 @@ class ResultEnglishView extends StatelessWidget {
                                 height: isSmallScreen ? 100 : 150,
                               ),
                               Text(
-                                'Second Semester 2024\nProgress Report',
+                                'First Semester 2024-2025\nProgress Report',
                                 style: TextStyle(
                                     color: isSmallScreen
-                                        ? Colors.white
+                                        ? Colors.black
                                         : Colors.black,
                                     fontSize: _getFontSize(
                                         context, 24), // Adjust font size
@@ -69,7 +69,7 @@ class ResultEnglishView extends StatelessWidget {
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: isSmallScreen
-                                              ? Colors.white
+                                              ? Colors.black
                                               : Colors.black,
                                           fontSize: _getFontSize(
                                               context, 24)), // Adjust font size
@@ -95,7 +95,7 @@ class ResultEnglishView extends StatelessWidget {
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: isSmallScreen
-                                              ? Colors.white
+                                              ? Colors.black
                                               : Colors.black,
                                           fontSize: _getFontSize(
                                               context, 18)), // Adjust font size
@@ -216,7 +216,7 @@ class ResultEnglishView extends StatelessWidget {
         child: Text(
           text,
           style: TextStyle(
-            fontSize: 12,
+            fontSize: 10,
             fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
             color: textColor, // تعيين لون النص هنا
           ),

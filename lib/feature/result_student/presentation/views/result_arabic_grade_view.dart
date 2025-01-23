@@ -47,7 +47,7 @@ class ResultArabicGradeView extends StatelessWidget {
                         child: Text(
                           'تقرير التقدم - الفصل الدراسي الثاني 2024',
                           style: TextStyle(
-                            color: isSmallScreen ? Colors.white : Colors.black,
+                            color: isSmallScreen ? Colors.black : Colors.black,
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                           ),
@@ -58,7 +58,7 @@ class ResultArabicGradeView extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.only(right: isSmallScreen ? 0 : 40),
                         child: Text(
-                          'congratulations\n${student.grade}',
+                          '${student.grade}',
                           style: const TextStyle(
                             fontSize: 22,
                             color: Colors.blue,
@@ -87,7 +87,7 @@ class ResultArabicGradeView extends StatelessWidget {
                                 text: " الاسم :  ",
                                 style: TextStyle(
                                     color: isSmallScreen
-                                        ? Colors.white
+                                        ? Colors.black
                                         : Colors.black,
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold),
@@ -96,7 +96,7 @@ class ResultArabicGradeView extends StatelessWidget {
                                 text: student.studentName,
                                 style: TextStyle(
                                     color: isSmallScreen
-                                        ? Colors.white
+                                        ? Colors.black
                                         : Colors.black,
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold),

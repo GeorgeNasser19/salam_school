@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../data/model/execl_model.dart';
 
-class ResultArabicView extends StatelessWidget {
-  const ResultArabicView({super.key, required this.student});
+class ResultKgArabicView extends StatelessWidget {
+  const ResultKgArabicView({super.key, required this.student});
 
   final ExeclModel student;
 
@@ -49,18 +49,18 @@ class ResultArabicView extends StatelessWidget {
                           if (isSmallScreen)
                             SizedBox(
                               height: student.subjects.entries.length <= 6
-                                  ? 100
+                                  ? 50
                                   : 50,
                             ),
                           if (!isSmallScreen)
                             const SizedBox(
-                              height: 150,
+                              height: 60,
                             ),
                           Text(
-                            'تقرير التقدم - الفصل الدراسي الاول 2025-2024',
+                            ' الفصل الدراسي الاول 2025-2024',
                             style: TextStyle(
                                 color:
-                                    isSmallScreen ? Colors.black : Colors.black,
+                                    isSmallScreen ? Colors.white : Colors.black,
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold),
                             textAlign: TextAlign.center,
@@ -75,7 +75,7 @@ class ResultArabicView extends StatelessWidget {
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: isSmallScreen
-                                          ? Colors.black
+                                          ? Colors.white
                                           : Colors.black,
                                       fontSize: _getFontSize(
                                           context, 24)), // Adjust font size
@@ -85,9 +85,11 @@ class ResultArabicView extends StatelessWidget {
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            'تهانينا\n${student.grade}',
-                            style: const TextStyle(
-                                fontSize: 22, color: Colors.black),
+                            '${student.grade}',
+                            style:  TextStyle(
+                                fontSize: 22, color: isSmallScreen
+                                          ? Colors.white
+                                          : Colors.black,),
                             textAlign: TextAlign.center,
                           ),
                           Padding(
@@ -101,7 +103,7 @@ class ResultArabicView extends StatelessWidget {
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: isSmallScreen
-                                          ? Colors.black
+                                          ? Colors.white
                                           : Colors.black,
                                       fontSize: _getFontSize(context, 22)),
                                 ),
@@ -113,10 +115,10 @@ class ResultArabicView extends StatelessWidget {
                             border: TableBorder.all(),
                             columnWidths: const {
                               0: FlexColumnWidth(1.5),
-                              1: FlexColumnWidth(1),
+                              1: FlexColumnWidth(1.5),
                               2: FlexColumnWidth(1),
                               3: FlexColumnWidth(1),
-                              4: FlexColumnWidth(1),
+                              4: FlexColumnWidth(0),
                             },
                             children: [
                               _buildHeaderRow(),
@@ -124,7 +126,6 @@ class ResultArabicView extends StatelessWidget {
                                 return _buildRow(
                                   entry.key,
                                   entry.value.toDouble(),
-                                  const Color.fromARGB(255, 255, 255, 255),
                                 );
                               })
                             ],
@@ -164,50 +165,52 @@ class ResultArabicView extends StatelessWidget {
     return baseSize;
   }
 
-  TableRow  _buildHeaderRow() {
+  TableRow _buildHeaderRow() {
     return TableRow(
       children: [
-        _buildCell('المادة\n  ',
-            isHeader: false, color: const Color.fromARGB(255, 250, 251, 252)),
-        _buildCell('متفوق\nفي التوقعات', isHeader: true, color: Colors.blue),
-        _buildCell('يلبي دائمًا\nالتوقعات',
-            isHeader: true, color: Colors.green),
-        _buildCell('يلبي أحيانًا\nالتوقعات',
-            isHeader: false, color: Colors.yellow),
-        _buildCell('غير مقبول\n', isHeader: true, color: Colors.red),
+        _buildCell(
+          'الماده ',
+          isHeader: true,
+          color: const Color.fromARGB(255, 164, 189, 233),
+        ),
+        _buildCell(
+          'الدرجه ',
+          isHeader: true,
+          color: const Color.fromARGB(255, 164, 189, 233),
+        ),
+        _buildCell(
+          'اللون ',
+          isHeader: true,
+          color: const Color.fromARGB(255, 164, 189, 233),
+        ),
       ],
     );
   }
 
-  TableRow _buildRow(
-    String subject,
-    double grade,
-    Color subjectColor,
-  ) {
-    Color exceedsColor = Colors.transparent;
-    Color alwaysColor = Colors.transparent;
-    Color sometimesColor = Colors.transparent;
-    Color unacceptableColor = Colors.transparent;
-
-    if (grade >= 80 && grade <= 100) {
-      exceedsColor = Colors.blue;
-    } else if (grade >= 65 && grade < 79) {
-      alwaysColor = Colors.green;
-    } else if (grade >= 50 && grade < 64) {
-      sometimesColor = Colors.yellow;
-    } else if (grade < 49) {
-      unacceptableColor = Colors.red;
-    }
-
-   return TableRow(
+  TableRow _buildRow(String subject, double grade) {
+    return TableRow(
       children: [
-        _buildCell(subject, color: subjectColor, textColor: Colors.black,isHeader: true),
-        _buildCell('', color: exceedsColor,textColor: Colors.black),
-        _buildCell('', color: alwaysColor,textColor: Colors.black),
-        _buildCell('', color: sometimesColor,textColor: Colors.black),
-        _buildCell('', color: unacceptableColor,textColor: Colors.black),
+        _buildCell(subject, color: Colors.white, isHeader: true),
+        _buildCell(grade.toString(), color: Colors.white, isHeader: true),
+        Container(
+          height: 50,
+          color: _getGradeColor(grade),
+        ),
       ],
     );
+  }
+
+  Color _getGradeColor(double grade) {
+    if (grade >= 80 && grade <= 100) {
+      return Colors.blue; // درجة عالية
+    } else if (grade >= 65 && grade < 79) {
+      return Colors.green; // درجة متوسطة
+    } else if (grade >= 50 && grade < 64) {
+      return Colors.yellow; // درجة منخفضة
+    } else if (grade < 49) {
+      return Colors.red;
+    }
+    return Colors.transparent;
   }
 
   Widget _buildCell(String text,
@@ -224,7 +227,7 @@ class ResultArabicView extends StatelessWidget {
         child: Text(
           text,
           style: TextStyle(
-            fontSize: 10,
+            fontSize: 14,
             fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
             color: textColor,
           ),

@@ -237,7 +237,7 @@ class _SearchViewState extends State<SearchView> with TickerProviderStateMixin {
                             ),
                             if (isSmallScreen)
                               Padding(
-                                padding: const EdgeInsets.only(left: 40),
+                                padding: const EdgeInsets.only(left: 25),
                                 child: SearchSquare(
                                   searchController: searchController,
                                 ),
